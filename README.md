@@ -1,1 +1,1 @@
-# -Schotten-Totten
+# Schotten-Totten
