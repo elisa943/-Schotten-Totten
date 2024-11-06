@@ -1,0 +1,21 @@
+TODO list : 
+
+Classes :
+- Interface 
+
+- Carte (Numéro, couleur)
+- Paquet_de_carte
+    -> Méthode combinaison de cartes (règles)
+- Pioche 
+
+- Borne (quelle carte est disponible (ou prise par un joueur))
+- Joueur (nom, cartes, frontière(s) gagnée(s))
+- Jeu(Frontière, 2 Joueurs, Cartes, gameover)
+
+- Main 
+- IA (get_all_actions)
+- Carte_Tactique 
+
+enum : https://jmdoudoux.developpez.com/cours/developpons/java_new/chap-enums.php
+- Couleur (ROUGE, VERT, BLEU, VIOLET, JAUNE, MARRON)
+- Règles ()
