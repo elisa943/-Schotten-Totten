@@ -17,5 +17,4 @@ Classes :
 - Carte_Tactique 
 
 enum : https://jmdoudoux.developpez.com/cours/developpons/java_new/chap-enums.php
-- Couleur (ROUGE, VERT, BLEU, VIOLET, JAUNE, MARRON)
 - Règles ()
