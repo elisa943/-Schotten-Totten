@@ -36,15 +36,26 @@ public class Board {
 
     // Other methods
     public void startGame() {
-        int continue = 1; 
+        int start = 1; 
         int turn = 0;
-        while(continue) {
+        while(start) 
+        {
             // Player of id 'playerID' plays
 
             // Check if the game is over
 
         }
     }
+
+    // Imprime l'état actuel du plateau
+    public void printBoardState() {
+        System.out.println("Frontières contrôlées par " + player1.getName() + " : ");
+        border.BordersControlledBy(player1);
+
+        System.out.print("Frontières contrôlées par " + player2.getName() + " : ");
+        border.BordersControlledBy(player2);
+    }
+
 
     public int gameOver() {
         /* If the game is won, returns player id */

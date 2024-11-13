@@ -30,6 +30,18 @@ public class Border {
         return count;
     }
 
+    public ArrayList<Integer> bordersControlledBy(Player player) {
+        ArrayList<Integer> controlledBorders = new ArrayList<>(); 
+
+        for (int i = 0; i < NUM_BORDER_CARDS; i++) {
+            if (borderOwners.get(i) == player.getId()) 
+            {
+                controlledBorders.add(i);
+            }
+        }
+
+        return controlledBorders;
+    }
 
     public int gameWon(Player player) {
         // 5 wall cards
