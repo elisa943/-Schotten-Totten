@@ -28,4 +28,21 @@ public class Border {
         }
         return count;
     }
+
+    public int gameWon(Player player) {
+        // 5 wall cards
+        int playerID = player.getId();
+        if (getBorderSize(playerID) >= 5) {
+            return 1;
+        }
+
+        // 3 adjacent cards
+        for (int i = 0; i < NUM_BORDER_CARDS - 2; i++) {
+            if (border[i] == playerID && border[i + 1] == playerID && border[i + 2] == playerID) {
+                return 1;
+            }
+        }
+
+        return 0; 
+    }
 }
