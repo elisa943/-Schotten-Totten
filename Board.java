@@ -41,6 +41,8 @@ public class Board {
             // Displays the game board
             //printBoardState();
 
+            displayBoard();
+
             int values[] = player1.getCardIndexFromUser();
             // Player of id 'playerID' plays
 
@@ -62,16 +64,15 @@ public class Board {
 
     public void displayBoard()
     {
+        String spaceBetweenNumbers = new String("    ");
+
         System.out.print("Player 1\n\n");
-        
-        String spaceBetweenNumbers = "    ";
 
         for(int i = 0; i < border.NUM_BORDER_CARDS; i++)
         {
             for(int j = 2; j > -1; j--)
             {
-                Card_Combination currentCombination = getCombinations(0,i);
-                Card cardJ = currentCombination.getCard(j);
+                Card cardJ = Card.copy(border.getCombinations(0,i).getCard(j));
 
                 if (cardJ == null)
                 {
@@ -89,13 +90,11 @@ public class Board {
 
         System.out.println("|_1_||_2_||_3_||_4_||_5_||_6_||_7_||_8_||_9_|");
 
-        String spaceBetweenNumbers = "    ";
-
         for(int i = 0; i < border.NUM_BORDER_CARDS; i++)
         {
             for(int j = 0; j < 3; j++)
             {
-                Card_Combination currentCombination = getCombinations(0,i);
+                Card_Combination currentCombination = border.getCombinations(0,i);
                 Card cardJ = currentCombination.getCard(j);
 
                 if (cardJ == null)

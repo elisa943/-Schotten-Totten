@@ -22,9 +22,9 @@ public class Card_Combination {
         for (int i = 0; i < 3; i++) {
             for (int j = i + 1; j < 3; j++) {
                 if (cards.get(i).getNumber() > cards.get(j).getNumber()) {
-                    Card temp = cards.get(i);
-                    cards.get(i) = cards.get(j);
-                    cards.get(j) = temp;
+                    // Card temp = cards.get(i);
+                    // cards.get(i) = cards.get(j);
+                    // cards.get(j) = temp;
                 }
             }
         }

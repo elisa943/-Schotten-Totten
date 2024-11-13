@@ -22,4 +22,11 @@ public class Card {
     public void setColor(Color color) {
         this.color = color;
     }
+
+    public static Card copy(Card card) {
+        if (card == null) {
+            return null; 
+        }
+        return new Card(card.getNumber(), card.getColor());
+    }
 }

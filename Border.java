@@ -6,10 +6,16 @@ public class Border {
     private int[] border;
     //private ArrayList<ArrayList<Card_Combination>> combinations;
     private Card_Combination[][] combinations;
+
     public Border() {
         border = new int[NUM_BORDER_CARDS];
+        combinations = new Card_Combination[2][NUM_BORDER_CARDS];
         for (int i = 0; i < NUM_BORDER_CARDS; i++) {
             border[i] = 0;
+        }
+        for (int i = 0; i < NUM_BORDER_CARDS; i++){
+            combinations[0][i] = null;
+            combinations[1][i] = null;
         }
     }
 
@@ -17,18 +23,15 @@ public class Border {
         return border[index];
     }
 
-    public Card_Combination[][] getCombinations() {
-        return combinations;
-    }
 
     public void setBorder(int value, int index) {
         border[index] = value;
     }
 
-    public void setCombinations(Card card) {
-        // Vérifier que la taille de la combinaison est < 3
-        this.combinations.addCard(card);
-    }
+    // public void setCombinations(Card card) {
+    //     // Vérifier que la taille de la combinaison est < 3
+    //     this.combinations.addCard(card);
+    // }
 
     public int getBorderSize(int value) {
         int count = 0;
@@ -40,7 +43,10 @@ public class Border {
         return count;
     }
 
-    public getCombinations
+    public Card_Combination getCombinations(int i, int j)
+    {
+        return combinations[i][j];
+    }
 
     public ArrayList<Integer> bordersControlledBy(Player player) {
 
