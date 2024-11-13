@@ -4,8 +4,8 @@ public class Border {
 
     public static final int NUM_BORDER_CARDS = 9;
     private int[] border;
-    private ArrayList<ArrayList<Card_Combination>> combinations;
-
+    //private ArrayList<ArrayList<Card_Combination>> combinations;
+    private Card_Combination[][] combinations;
     public Border() {
         border = new int[NUM_BORDER_CARDS];
         for (int i = 0; i < NUM_BORDER_CARDS; i++) {
@@ -17,8 +17,17 @@ public class Border {
         return border[index];
     }
 
+    public Card_Combination[][] getCombinations() {
+        return combinations;
+    }
+
     public void setBorder(int value, int index) {
         border[index] = value;
+    }
+
+    public void setCombinations(Card card) {
+        // Vérifier que la taille de la combinaison est < 3
+        this.combinations.addCard(card);
     }
 
     public int getBorderSize(int value) {

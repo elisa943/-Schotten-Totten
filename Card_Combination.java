@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Card_Combination {
     private ArrayList<Card> cards;
 
@@ -6,6 +8,9 @@ public class Card_Combination {
     }
 
     public Card getCard(int index) {
+        if (cards.size() < index) {
+            return null;
+        } 
         return cards.get(index);
     }
 
