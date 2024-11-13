@@ -4,7 +4,7 @@ public class Border {
 
     public static final int NUM_BORDER_CARDS = 9;
     private int[] border;
-    private Array<Array<Card_Combination>> combinations;
+    private ArrayList<ArrayList<Card_Combination>> combinations;
 
     public Border() {
         border = new int[NUM_BORDER_CARDS];
@@ -32,10 +32,11 @@ public class Border {
     }
 
     public ArrayList<Integer> bordersControlledBy(Player player) {
+
         ArrayList<Integer> controlledBorders = new ArrayList<>(); 
 
         for (int i = 0; i < NUM_BORDER_CARDS; i++) {
-            if (borderOwners.get(i) == player.getId()) 
+            if (border[i] == player.getId()) 
             {
                 controlledBorders.add(i);
             }

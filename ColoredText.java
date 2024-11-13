@@ -33,7 +33,6 @@ public class ColoredText {
         ColoredText coloredText = new ColoredText("Hello, World!", "\u001B[32m");
         coloredText.println();
         printlnColored("Hello, World!", "\u001B[33m");
-        clear();
 
         printColored("Hello, ", "\u001B[31m");
     }
