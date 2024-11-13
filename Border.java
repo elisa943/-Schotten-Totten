@@ -29,20 +29,22 @@ public class Border {
         return count;
     }
 
-    public int gameWon(Player player) {
+    public boolean gameWon(Player player) {
+        /* Returns true if the game is won by the player */
+
         // 5 wall cards
         int playerID = player.getId();
         if (getBorderSize(playerID) >= 5) {
-            return 1;
+            return true;
         }
 
         // 3 adjacent cards
         for (int i = 0; i < NUM_BORDER_CARDS - 2; i++) {
             if (border[i] == playerID && border[i + 1] == playerID && border[i + 2] == playerID) {
-                return 1;
+                return true;
             }
         }
 
-        return 0; 
+        return false; 
     }
 }

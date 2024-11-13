@@ -1,15 +1,17 @@
+import java.util.ArrayList;
+
 public class Player 
 {
     // Attributs
     int playerId;
     String name; 
-    private List<Card> hand;
+    private ArrayList<Card> hand;
     private List<Borne> wonBorders;
 
     // Constructeur
     public Player(String name) {
         this.name = name;
-        this.hand = new ArrayList<>();      
+        //this.hand = new ArrayList<>();      
         this.wonBorders = new ArrayList<>(); 
     }
 
@@ -39,7 +41,7 @@ public class Player
         return name;
     }
 
-    public String setHand(String hand) {
+    public String setHand(ArrayList<Card> hand) {
         this.hand = hand;
     }
 

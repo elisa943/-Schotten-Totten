@@ -36,19 +36,20 @@ public class Board {
 
     // Other methods
     public void startGame() {
-        int continue = 1; 
-        int turn = 0;
-        while(continue) {
+        boolean start = true; 
+
+        while(start) {
+            // Displays the game board
+
             // Player of id 'playerID' plays
 
             // Check if the game is over
-
+            start = gameOver() == 0;
         }
     }
 
     public int gameOver() {
         /* If the game is won, returns player id */
-
         if (border.gameWon(player1)) {
             return player1.getId();
         } else if (border.gameWon(player2)) {
