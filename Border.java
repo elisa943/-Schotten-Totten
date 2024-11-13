@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Border {
+
     public static final int NUM_BORDER_CARDS = 9;
     private int[] border;
     private Array<Array<Card_Combination>> combinations;
@@ -28,6 +29,19 @@ public class Border {
             }
         }
         return count;
+    }
+
+    public ArrayList<Integer> bordersControlledBy(Player player) {
+        ArrayList<Integer> controlledBorders = new ArrayList<>(); 
+
+        for (int i = 0; i < NUM_BORDER_CARDS; i++) {
+            if (borderOwners.get(i) == player.getId()) 
+            {
+                controlledBorders.add(i);
+            }
+        }
+
+        return controlledBorders;
     }
 
     public boolean gameWon(Player player) {
