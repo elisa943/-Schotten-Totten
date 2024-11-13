@@ -4,7 +4,6 @@ public class Player
     int playerId;
     String name; 
     private List<Card> hand;
-    private List<Borne> wonBorders;
 
     // Constructeur
     public Player(String name) {
@@ -20,14 +19,6 @@ public class Player
     
     public void removeCardFromHand(Card card) {
         hand.remove(card);
-    }
-
-    public void addWonBorder(Border border) {
-        wonBorders.add(border);
-    }
-    
-    public List<Borne> getWonBorders() {
-        return wonBorders;
     }
     
     // Setters et getters
