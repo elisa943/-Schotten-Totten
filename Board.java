@@ -60,28 +60,60 @@ public class Board {
         System.out.println(border.bordersControlledBy(player2).toString());
     }
 
-    // public void displayBoard()
-    // {
-    //     System.out.print("Player 1\n\n");
+    public void displayBoard()
+    {
+        System.out.print("Player 1\n\n");
         
-    //     String spaceBetweenNumbers = "    ";
+        String spaceBetweenNumbers = "    ";
 
-    //     for(int i = 0; i < Border.NUM_BORDER_CARDS; i++)
-    //     {
-    //         Border.combinations[0]
-    //         for(int j = 0; i < 3; )
-    //             Border
-    //     }
+        for(int i = 0; i < border.NUM_BORDER_CARDS; i++)
+        {
+            for(int j = 2; j > -1; j--)
+            {
+                Card_Combination currentCombination = getCombinations(0,i);
+                Card cardJ = currentCombination.getCard(j);
 
-    //     System.out.println("|_1_||_2_||_3_||_4_||_5_||_6_||_7_||_8_||_9_|")
+                if (cardJ == null)
+                {
+                    System.out.print(" ");
+                }
+                else
+                {
+                    System.out.print(cardJ.getNumber());
+                }
 
-    //     for(int i = 0; i < Border.NUM_BORDER_CARDS; i++)
-    //     {
+                System.out.print(spaceBetweenNumbers);
+            }
+            System.out.print("\n");
+        }
 
-    //     }
+        System.out.println("|_1_||_2_||_3_||_4_||_5_||_6_||_7_||_8_||_9_|");
 
-    //     System.out.print("\nPlayer 2\n")
-    // }
+        String spaceBetweenNumbers = "    ";
+
+        for(int i = 0; i < border.NUM_BORDER_CARDS; i++)
+        {
+            for(int j = 0; j < 3; j++)
+            {
+                Card_Combination currentCombination = getCombinations(0,i);
+                Card cardJ = currentCombination.getCard(j);
+
+                if (cardJ == null)
+                {
+                    System.out.print(" ");
+                }
+                else
+                {
+                    System.out.print(cardJ.getNumber());
+                }
+
+                System.out.print(spaceBetweenNumbers);
+            }
+            System.out.print("\n");
+        }
+
+        System.out.print("\nPlayer 2\n");
+    }
 
     public int gameOver() {
         /* If the game is won, returns player id */

@@ -31,6 +31,8 @@ public class Border {
         return count;
     }
 
+    public getCombinations
+
     public ArrayList<Integer> bordersControlledBy(Player player) {
 
         ArrayList<Integer> controlledBorders = new ArrayList<>(); 
