@@ -12,6 +12,26 @@ Classes : https://regle.escaleajeux.fr/schot_rg.pdf
 - Joueur (nom, cartes, frontière(s) gagnée(s))
 - Jeu(Frontière, 2 Joueurs, Cartes, gameover)
 
+- Fonction display board avec une interface de ce style
+
+    Player 1
+
+
+      6
+      3    8    9    1
+    |_1_||_2_||_3_||_4_||_5_||_6_||_7_||_8_||_9_|
+      9    1
+      8    7
+      7    2
+
+    Player 2
+    
+    Hand:   7 6 9 1 9 2 0 7 1
+    Numbers:1 2 3 4 5 6 7 8 9
+
+    Card Number: 4
+    Border number: 3 
+
 - Main 
 - IA (get_all_actions)
 - Carte_Tactique 

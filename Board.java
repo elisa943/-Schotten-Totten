@@ -56,6 +56,28 @@ public class Board {
         border.BordersControlledBy(player2);
     }
 
+    // public void displayBoard()
+    // {
+    //     System.out.print("Player 1\n\n");
+        
+    //     String spaceBetweenNumbers = "    ";
+
+    //     for(int i = 0; i < Border.NUM_BORDER_CARDS; i++)
+    //     {
+    //         Border.combinations[0]
+    //         for(int j = 0; i < 3; )
+    //             Border
+    //     }
+
+    //     System.out.println("|_1_||_2_||_3_||_4_||_5_||_6_||_7_||_8_||_9_|")
+
+    //     for(int i = 0; i < Border.NUM_BORDER_CARDS; i++)
+    //     {
+
+    //     }
+
+    //     System.out.print("\nPlayer 2\n")
+    // }
 
     public int gameOver() {
         /* If the game is won, returns player id */
