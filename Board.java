@@ -34,26 +34,30 @@ public class Board {
         return border;
     }
 
-    // Other methods
     public void startGame() {
-        int start = 1; 
-        int turn = 0;
-        while(start) 
-        {
+        boolean start = true; 
+
+        while(start) {
+            // Displays the game board
+            //printBoardState();
+
+            int values[] = player1.getCardIndexFromUser();
             // Player of id 'playerID' plays
 
-            // Check if the game is over
+            // Detects a combination of cards
 
+            // Check if the game is over
+            start = gameOver() == 0;
         }
     }
 
-    // Imprime l'état actuel du plateau
     public void printBoardState() {
+        /* Imprime l'état actuel du plateau */
         System.out.println("Frontières contrôlées par " + player1.getName() + " : ");
-        border.BordersControlledBy(player1);
+        System.out.println(border.bordersControlledBy(player1).toString());
 
-        System.out.print("Frontières contrôlées par " + player2.getName() + " : ");
-        border.BordersControlledBy(player2);
+        System.out.println("Frontières contrôlées par " + player2.getName() + " : ");
+        System.out.println(border.bordersControlledBy(player2).toString());
     }
 
     // public void displayBoard()
@@ -81,7 +85,6 @@ public class Board {
 
     public int gameOver() {
         /* If the game is won, returns player id */
-
         if (border.gameWon(player1)) {
             return player1.getId();
         } else if (border.gameWon(player2)) {

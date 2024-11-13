@@ -1,15 +1,16 @@
-public class Player 
-{
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Player {
     // Attributs
     int id;
     String name; 
-    private List<Card> hand;
+    private ArrayList<Card> hand;
 
     // Constructeur
     public Player(String name) {
         this.name = name;
-        this.hand = new ArrayList<>();      
-        this.wonBorders = new ArrayList<>(); 
+        //this.hand = new ArrayList<>();      
     }
 
     // Methodes
@@ -22,7 +23,7 @@ public class Player
     }
     
     // Setters et getters
-    public int setId(int id)
+    public void setId(int id)
     {
         this.id = id;
     }
@@ -32,7 +33,7 @@ public class Player
         return id;
     }
 
-    public String setName(String name){
+    public void setName(String name){
         this.name = name;
     }
 
@@ -40,12 +41,28 @@ public class Player
         return name;
     }
 
-    public String setHand(String hand) {
+    public void setHand(ArrayList<Card> hand) {
         this.hand = hand;
     }
 
-    public String getHand() {
+    public ArrayList<Card> getHand() {
         return hand;
+    }
+
+    public int[] getCardIndexFromUser() {
+        /* Returns the card index picked by the player */
+        Scanner scanner = new Scanner(System.in);
+        int cardNumber = -1; 
+        int borderNumber = -1;
+        while ((cardNumber < 0 || cardNumber >= hand.size()) && (borderNumber < 0 || borderNumber >= Border.NUM_BORDER_CARDS)) {
+            System.out.print("Choose a card to play: ");
+            cardNumber = scanner.nextInt();
+            System.out.print("Choose a border to put the card: ");
+            borderNumber = scanner.nextInt();
+        }
+        //scanner.close();
+        int[] numbers = {cardNumber, borderNumber};
+        return numbers;
     }
 
 }

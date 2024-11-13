@@ -1,32 +1,25 @@
 public class Card_Combination {
-    private Card[] cards;
+    private ArrayList<Card> cards;
 
     public Card_Combination() {
-        cards = new Card[3];
-    }
-
-    public Card_Combination(Card card1, Card card2, Card card3) {
-        cards = new Card[3];
-        cards[0] = card1;
-        cards[1] = card2;
-        cards[2] = card3;
+        cards = new ArrayList<Card>();
     }
 
     public Card getCard(int index) {
-        return cards[index];
+        return cards.get(index);
     }
 
-    public void setCard(Card card, int index) {
-        cards[index] = card;
+    public void addCard(Card card) {
+        cards.add(card);
     }
 
     public void sort() {
         for (int i = 0; i < 3; i++) {
             for (int j = i + 1; j < 3; j++) {
-                if (cards[i].getNumber() > cards[j].getNumber()) {
-                    Card temp = cards[i];
-                    cards[i] = cards[j];
-                    cards[j] = temp;
+                if (cards.get(i).getNumber() > cards.get(j).getNumber()) {
+                    Card temp = cards.get(i);
+                    cards.get(i) = cards.get(j);
+                    cards.get(j) = temp;
                 }
             }
         }
@@ -34,25 +27,25 @@ public class Card_Combination {
 
     public boolean isStraightFlush() {
         sort();
-        return cards[0].getColor() == cards[1].getColor() && cards[1].getColor() == cards[2].getColor() && cards[0].getNumber() + 1 == cards[1].getNumber() && cards[1].getNumber() + 1 == cards[2].getNumber();
+        return cards.get(0).getColor() == cards.get(1).getColor() && cards.get(1).getColor() == cards.get(2).getColor() && cards.get(0).getNumber() + 1 == cards.get(1).getNumber() && cards.get(1).getNumber() + 1 == cards.get(2).getNumber();
     }
 
     public boolean isThreeOfAKind() {
         sort();
-        return cards[0].getNumber() == cards[1].getNumber() && cards[1].getNumber() == cards[2].getNumber();
+        return cards.get(0).getNumber() == cards.get(1).getNumber() && cards.get(1).getNumber() == cards.get(2).getNumber();
     }
 
     public boolean isFlush() {
-        return cards[0].getColor() == cards[1].getColor() && cards[1].getColor() == cards[2].getColor();
+        return cards.get(0).getColor() == cards.get(1).getColor() && cards.get(1).getColor() == cards.get(2).getColor();
     }
 
     public boolean isStraight() {
         sort();
-        return cards[0].getNumber() + 1 == cards[1].getNumber() && cards[1].getNumber() + 1 == cards[2].getNumber();
+        return cards.get(0).getNumber() + 1 == cards.get(1).getNumber() && cards.get(1).getNumber() + 1 == cards.get(2).getNumber();
     }
 
     public int sum() {
-        return cards[0].getNumber() + cards[1].getNumber() + cards[2].getNumber();
+        return cards.get(0).getNumber() + cards.get(1).getNumber() + cards.get(2).getNumber();
     }
 
     public Combination getCombination() {

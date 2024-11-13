@@ -8,18 +8,21 @@ public class Deck {
     public static final int NUM_CARDS_PER_PLAYER = 6;
 
     public Deck() {
+        this.stack = new ArrayList<Card>();
         for (int i = 1; i <= NUM_NUMBERS; i++) {
             for (Color color : Color.values()) {
-                stack.add(new Card(i, color));
+                this.stack.add(new Card(i, color));
             }
         }
         shuffle();
     }
 
     public Deck(Player player1, Player player2) {
+        this.stack = new ArrayList<Card>();
+
         for (int i = 1; i <= NUM_NUMBERS; i++) {
             for (Color color : Color.values()) {
-                stack.add(new Card(i, color));
+                this.stack.add(new Card(i, color));
             }
         }
         shuffle();
