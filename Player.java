@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Player 
 {
@@ -41,12 +42,27 @@ public class Player
         return name;
     }
 
-    public String setHand(ArrayList<Card> hand) {
+    public ArrayList<Card> setHand(ArrayList<Card> hand) {
         this.hand = hand;
     }
 
-    public String getHand() {
+    public ArrayList<Card> getHand() {
         return hand;
+    }
+
+    public int[] getCardIndexFromUser() {
+        Scanner scanner = new Scanner(System.in);
+        int cardNumber = -1; 
+        int borderNumber = -1;
+        while (cardNumber < 0 && cardNumber >= hand.size() && borderNumber < 0 && borderNumber >= Border.NUM_BORDER_CARDS) {
+            System.out.print("Choose a card to play: ");
+            cardNumber = scanner.nextInt();
+            System.out.print("Choose a border to put the card: ");
+            borderNumber = scanner.nextInt();
+        }
+        scanner.close();
+        int[] numbers = {cardNumber, borderNumber};
+        return numbers;
     }
 
 }

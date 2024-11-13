@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Border {
     public static final int NUM_BORDER_CARDS = 9;
     private int[] border;
+    private Array<Array<Card_Combination>> combinations;
 
     public Border() {
         border = new int[NUM_BORDER_CARDS];
