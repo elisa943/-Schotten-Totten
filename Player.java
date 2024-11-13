@@ -1,7 +1,7 @@
 public class Player 
 {
     // Attributs
-    int playerId;
+    int id;
     String name; 
     private List<Card> hand;
 
@@ -22,6 +22,16 @@ public class Player
     }
     
     // Setters et getters
+    public int setId(int id)
+    {
+        this.id = id;
+    }
+
+    public int getId()
+    {
+        return id;
+    }
+
     public String setName(String name){
         this.name = name;
     }

@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Border {
+
     public static final int NUM_BORDER_CARDS = 9;
     private int[] border;
 
@@ -28,6 +29,7 @@ public class Border {
         }
         return count;
     }
+
 
     public int gameWon(Player player) {
         // 5 wall cards
