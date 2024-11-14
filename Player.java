@@ -54,7 +54,7 @@ public class Player {
         Scanner scanner = new Scanner(System.in);
         int cardNumber = -1; 
         int borderNumber = -1;
-        while ((cardNumber < 0 || cardNumber >= hand.size()) && (borderNumber < 0 || borderNumber >= Border.NUM_BORDER_CARDS)) {
+        while ((cardNumber <= 0 || cardNumber > hand.size()) && (borderNumber <= 0 || borderNumber > Border.NUM_BORDER_CARDS)) {
             System.out.print("Choose a card to play: ");
             cardNumber = scanner.nextInt();
             System.out.print("Choose a border to put the card: ");

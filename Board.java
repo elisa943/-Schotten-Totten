@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.io.IOException;
+
 public class Board {
     private Player player1;
     private Player player2;
@@ -34,22 +37,43 @@ public class Board {
         return border;
     }
 
-    public void startGame() {
-        boolean start = true; 
+    // private void setTerminalSize(int width, int height) {
+    //     try {
+    //         if (System.getProperty("os.name").toLowerCase().contains("win")) {
+    //             // Commande pour Windows
+    //             new ProcessBuilder("cmd", "/c", "mode con: cols=" + width + " lines=" + height).inheritIO().start().waitFor();
+    //         } else {
+    //             // Commande pour Unix (Linux et macOS)
+    //             String[] cmd = {"resize -s " + height + " " + width};
+    //             Runtime.getRuntime().exec(cmd);
+    //         }
+    //     } catch (IOException | InterruptedException e) {
+    //         e.printStackTrace();
+    //     }
+    // }
 
+    public void startGame() {
+        // setTerminalSize(80, 27);
+        ColoredText.clear();
+        boolean start = true; 
+        Player startingPlayer = player1;
         while(start) {
             // Displays the game board
-            //printBoardState();
-
             displayBoard();
+            displayHand(startingPlayer);
 
-            int values[] = player1.getCardIndexFromUser();
-            // Player of id 'playerID' plays
+            // startingPlayer plays
+            int values[] = startingPlayer.getCardIndexFromUser();
 
-            // Detects a combination of cards
+            // Adds card to the border
+
+            // Checks if a combination is complete
+
+            // Draws card from deck
 
             // Check if the game is over
             start = gameOver() == 0;
+            startingPlayer = startingPlayer == player1 ? player2 : player1;
         }
     }
 
@@ -62,17 +86,15 @@ public class Board {
         System.out.println(border.bordersControlledBy(player2).toString());
     }
 
-    public void displayBoard()
-    {
-        String spaceBetweenNumbers = new String("    ");
+    public void displayBoard() {
+        ColoredText.clear();
+        String spaceBetweenNumbers = "    "; 
 
-        System.out.print("Player 1\n\n");
+        System.out.printf("Player 1 : %s\n\n", player1.getName());
 
-        for(int i = 0; i < border.NUM_BORDER_CARDS; i++)
-        {
-            for(int j = 2; j > -1; j--)
-            {
-                Card cardJ = Card.copy(border.getCombinations(0,i).getCard(j));
+        for(int i = 0; i < border.NUM_BORDER_CARDS; i++) {
+            for(int j = 2; j > -1; j--) {
+                Card cardJ = border.getCombinations(0,i).getCard(j); 
 
                 if (cardJ == null)
                 {
@@ -90,19 +112,14 @@ public class Board {
 
         System.out.println("|_1_||_2_||_3_||_4_||_5_||_6_||_7_||_8_||_9_|");
 
-        for(int i = 0; i < border.NUM_BORDER_CARDS; i++)
-        {
-            for(int j = 0; j < 3; j++)
-            {
-                Card_Combination currentCombination = border.getCombinations(0,i);
-                Card cardJ = currentCombination.getCard(j);
+        for(int i = 0; i < border.NUM_BORDER_CARDS; i++) {
+            for(int j = 0; j < 3; j++) {
+                Card cardJ = border.getCombinations(0,i).getCard(j);
 
-                if (cardJ == null)
-                {
+                if (cardJ == null) {
                     System.out.print(" ");
                 }
-                else
-                {
+                else {
                     System.out.print(cardJ.getNumber());
                 }
 
@@ -111,7 +128,23 @@ public class Board {
             System.out.print("\n");
         }
 
-        System.out.print("\nPlayer 2\n");
+        System.out.printf("\nPlayer 2 : %s\n", player2.getName());
+    }
+
+    public static void displayHand(Player player) {
+        ArrayList<Card> hand = player.getHand(); 
+
+        System.out.print("Hand : ");
+        for (int i = 0; i < hand.size(); i++) {
+            ColoredText.coloredCard(hand.get(i));
+            System.out.print(" ");
+        }
+        System.out.println();
+        System.out.print("       ");
+        for (int i = 0; i < hand.size(); i++) {
+            System.out.print(Integer.toString(i+1) + " ");
+        }
+        System.out.println();
     }
 
     public int gameOver() {

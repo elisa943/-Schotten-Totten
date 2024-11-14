@@ -2,13 +2,13 @@ import java.util.ArrayList;
 
 public class Card_Combination {
     private ArrayList<Card> cards;
-
+    public static final int NUM_CARDS = 3;
     public Card_Combination() {
         cards = new ArrayList<Card>();
     }
 
     public Card getCard(int index) {
-        if (cards.size() < index) {
+        if (cards.size() <= index) {
             return null;
         } 
         return cards.get(index);
@@ -19,8 +19,8 @@ public class Card_Combination {
     }
 
     public void sort() {
-        for (int i = 0; i < 3; i++) {
-            for (int j = i + 1; j < 3; j++) {
+        for (int i = 0; i < NUM_CARDS; i++) {
+            for (int j = i + 1; j < NUM_CARDS; j++) {
                 if (cards.get(i).getNumber() > cards.get(j).getNumber()) {
                     // Card temp = cards.get(i);
                     // cards.get(i) = cards.get(j);
@@ -31,12 +31,10 @@ public class Card_Combination {
     }
 
     public boolean isStraightFlush() {
-        sort();
         return cards.get(0).getColor() == cards.get(1).getColor() && cards.get(1).getColor() == cards.get(2).getColor() && cards.get(0).getNumber() + 1 == cards.get(1).getNumber() && cards.get(1).getNumber() + 1 == cards.get(2).getNumber();
     }
 
     public boolean isThreeOfAKind() {
-        sort();
         return cards.get(0).getNumber() == cards.get(1).getNumber() && cards.get(1).getNumber() == cards.get(2).getNumber();
     }
 
@@ -45,7 +43,6 @@ public class Card_Combination {
     }
 
     public boolean isStraight() {
-        sort();
         return cards.get(0).getNumber() + 1 == cards.get(1).getNumber() && cards.get(1).getNumber() + 1 == cards.get(2).getNumber();
     }
 
@@ -54,6 +51,7 @@ public class Card_Combination {
     }
 
     public Combination getCombination() {
+        sort();
         if (isStraightFlush()) {
             return Combination.STRAIGHT_FLUSH;
         } else if (isThreeOfAKind()) {

@@ -4,7 +4,6 @@ public class Border {
 
     public static final int NUM_BORDER_CARDS = 9;
     private int[] border;
-    //private ArrayList<ArrayList<Card_Combination>> combinations;
     private Card_Combination[][] combinations;
 
     public Border() {
@@ -14,8 +13,8 @@ public class Border {
             border[i] = 0;
         }
         for (int i = 0; i < NUM_BORDER_CARDS; i++){
-            combinations[0][i] = null;
-            combinations[1][i] = null;
+            combinations[0][i] = new Card_Combination();
+            combinations[1][i] = new Card_Combination();
         }
     }
 
