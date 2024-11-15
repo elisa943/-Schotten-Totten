@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class Card_Combination {
     private ArrayList<Card> cards;
     public static final int NUM_CARDS = 3;
+
     public Card_Combination() {
         cards = new ArrayList<Card>();
     }
@@ -12,6 +13,10 @@ public class Card_Combination {
             return null;
         } 
         return cards.get(index);
+    }
+
+    public int getCardSize() {
+        return cards.size();
     }
 
     public void addCard(Card card) {
@@ -63,5 +68,12 @@ public class Card_Combination {
         } else {
             return Combination.SUM;
         }
+    }
+
+    public static boolean betterCombination(Combination combination, Card_Combination cardCombination) {
+        // TODO
+
+        return false;
+
     }
 }

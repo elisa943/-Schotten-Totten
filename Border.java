@@ -22,9 +22,12 @@ public class Border {
         return border[index];
     }
 
-
     public void setBorder(int value, int index) {
         border[index] = value;
+    }
+
+    public void setCombinations(Card card, int i, int j) {
+        combinations[i][j].addCard(card);
     }
 
     // public void setCombinations(Card card) {

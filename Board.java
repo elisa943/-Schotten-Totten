@@ -8,8 +8,8 @@ public class Board {
     private Border border;
 
     public Board() {
-        player1 = new Player("Player 1");
-        player2 = new Player("Player 2");
+        player1 = new Player("Player 1", 1);
+        player2 = new Player("Player 2", 2);
         deck = new Deck(player1, player2);
         border = new Border();
     }
@@ -57,6 +57,7 @@ public class Board {
         ColoredText.clear();
         boolean start = true; 
         Player startingPlayer = player1;
+        Player otherPlayer = player2;
         while(start) {
             // Displays the game board
             displayBoard();
@@ -65,15 +66,37 @@ public class Board {
             // startingPlayer plays
             int values[] = startingPlayer.getCardIndexFromUser();
 
-            // Adds card to the border
+            // Removes card from hand
+            startingPlayer.removeCardFromHand(startingPlayer.getCardFromHand(values[0]));
 
-            // Checks if a combination is complete
+            // Adds card to the border
+            border.setCombinations(startingPlayer.getCardFromHand(values[0]), startingPlayer.getId() - 1, values[1]);
 
             // Draws card from deck
+            startingPlayer.addCardToHand(deck.getCard());
+
+            // Checks if a combination is complete
+            if (border.getCombinations(startingPlayer.getId() - 1, values[1]).getCardSize() == 3) {
+                Combination combination = border.getCombinations(startingPlayer.getId() - 1, values[1]).getCombination();
+                // Checks if other player has a full combination
+                if (border.getCombinations(otherPlayer.getId() - 1, values[1]).getCardSize() == 3) {
+
+                }
+                // Else checks if other player might have a better combination
+                else if (Card_Combination.betterCombination(combination, border.getCombinations(otherPlayer.getId() - 1, values[1]))) {
+                    
+                }
+                // Else the player wins the border
+                else {
+                    border.setBorder(startingPlayer.getId(), values[1]);
+                }
+            }
+
 
             // Check if the game is over
             start = gameOver() == 0;
             startingPlayer = startingPlayer == player1 ? player2 : player1;
+            otherPlayer = otherPlayer == player1 ? player2 : player1;
         }
     }
 

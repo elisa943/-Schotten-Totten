@@ -8,13 +8,17 @@ public class Player {
     private ArrayList<Card> hand;
 
     // Constructeur
-    public Player(String name) {
+    public Player(String name, int id) {
         this.name = name;
-        //this.hand = new ArrayList<>();      
+        //this.hand = new ArrayList<>();    
+        this.id = id; 
     }
 
     // Methodes
     public void addCardToHand(Card card) {
+        if (card == null) {
+            return;
+        }
         hand.add(card);
     }
     
@@ -23,13 +27,11 @@ public class Player {
     }
     
     // Setters et getters
-    public void setId(int id)
-    {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
@@ -49,6 +51,10 @@ public class Player {
         return hand;
     }
 
+    public Card getCardFromHand(int index) {
+        return hand.get(index);
+    }
+
     public int[] getCardIndexFromUser() {
         /* Returns the card index picked by the player */
         Scanner scanner = new Scanner(System.in);
@@ -61,7 +67,7 @@ public class Player {
             borderNumber = scanner.nextInt();
         }
         //scanner.close();
-        int[] numbers = {cardNumber, borderNumber};
+        int[] numbers = {cardNumber-1, borderNumber-1};
         return numbers;
     }
 
