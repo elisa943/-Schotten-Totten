@@ -120,8 +120,6 @@ public class Board {
 
             for(int i = 0; i < border.NUM_BORDER_CARDS; i++) 
             {
-                // System.out.print("  "); 
-
                 Card cardJ = border.getCombinations(0,i).getCard(j); 
 
                 if (cardJ == null)
