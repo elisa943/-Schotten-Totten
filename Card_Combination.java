@@ -27,8 +27,8 @@ public class Card_Combination {
         if (getCardSize() == 1) {
             return; 
         }
-        for (int i = 0; i < NUM_CARDS; i++) {
-            for (int j = i + 1; j < NUM_CARDS; j++) {
+        for (int i = 0; i < getCardSize(); i++) {
+            for (int j = i + 1; j < getCardSize(); j++) {
                 if (cards.get(i).getNumber() > cards.get(j).getNumber()) {
                     // Swap two cards 
                     Card temp = cards.get(i);

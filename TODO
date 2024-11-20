@@ -38,3 +38,33 @@ Classes : https://regle.escaleajeux.fr/schot_rg.pdf
 
 enum : https://jmdoudoux.developpez.com/cours/developpons/java_new/chap-enums.php
 - Règles ()
+
+Fonctionnement glouton de l'IA:
+
+public enum Combination {
+    SUM, STRAIGHT, FLUSH, THREE_OF_A_KIND, STRAIGHT_FLUSH;
+};
+
+exemples:
+
+SUM: 1+2+8
+STRAIGHT: 1,2,3
+FLUSH: 1r, 4r, 9r
+THREE OF A KIND 3 3 3
+STRAIGHT FLUSH 1r 2r 3r
+
+Regarde toutes les cartes posées.
+
+Va essayer de faire la meilleure combinaison possible à l'instant t.
+
+Donc va essayer une par une de voir si il est possible de faire SUM, puis STRAIGHT, puis FLUSH, puis THREE OF A KIND, puis STRAIGHT FLUSH.
+
+SUM: mets la carte la plus grande sur l'endroit où il y a la plus grande carte (ou sinon choisis au hasard)
+
+STRAIGHT: cas avec 1 carte: regarde si il y a des cartes avec le numéro notre carte +ou- 1 et si il y a deux cartes, voir si ça peut faire un STRAIGHT
+
+FLUSH: regarde si il y a une carte ou deux avec notre couleur
+
+THREE OF A KIND regarde si il y a une carte ou deux avec notre numéro
+
+STRAIGHT FLUSH regarde si il y a une carte ou deux avec notre couleur et tel qu'il y a des cartes avec le
