@@ -60,12 +60,40 @@ public class Player {
         Scanner scanner = new Scanner(System.in);
         int cardNumber = -1; 
         int borderNumber = -1;
-        while ((cardNumber <= 0 || cardNumber > hand.size()) && (borderNumber <= 0 || borderNumber > Border.NUM_BORDER_CARDS)) {
-            System.out.print("Choose a card to play: ");
+
+        int validCardNumber = 0;
+        int validBorderNumber = 0;
+
+        while ((cardNumber <= 0 || cardNumber > hand.size()) && (validCardNumber == 0)) {
+
+            System.out.print("Choose a card to play (enter a white number): ");
             cardNumber = scanner.nextInt();
+
+            if (cardNumber < 1 || cardNumber > hand.size()) {
+                System.out.println("Invalid card number. Please choose a valid card.");
+                cardNumber = -1;
+            }
+            else
+            {
+                validCardNumber = 1;
+            }
+        }
+        
+        while ((borderNumber <= 0 || borderNumber > Border.NUM_BORDER_CARDS) && (validBorderNumber == 0)) {
+
             System.out.print("Choose a border to put the card: ");
             borderNumber = scanner.nextInt();
+
+            if (borderNumber < 1 || borderNumber > Border.NUM_BORDER_CARDS) {
+                System.out.println("Invalid border number. Please choose a valid border.");
+                borderNumber = -1;
+            }
+            else
+            {
+                validBorderNumber = 1;
+            }
         }
+
         //scanner.close();
         int[] numbers = {cardNumber-1, borderNumber-1};
         return numbers;
