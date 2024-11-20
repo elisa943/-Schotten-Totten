@@ -24,15 +24,15 @@ public class Card_Combination {
     }
 
     public void sort() {
-        for (int i = 0; i < NUM_CARDS; i++) {
-            for (int j = i + 1; j < NUM_CARDS; j++) {
-                if (cards.get(i).getNumber() > cards.get(j).getNumber()) {
-                    // Card temp = cards.get(i);
-                    // cards.get(i) = cards.get(j);
-                    // cards.get(j) = temp;
-                }
-            }
-        }
+        // for (int i = 0; i < NUM_CARDS; i++) {
+        //     for (int j = i + 1; j < NUM_CARDS; j++) {
+        //         if (cards.get(i).getNumber() > cards.get(j).getNumber()) {
+        //             // Card temp = cards.get(i);
+        //             // cards.get(i) = cards.get(j);
+        //             // cards.get(j) = temp;
+        //         }
+        //     }
+        // }
     }
 
     public boolean isStraightFlush() {

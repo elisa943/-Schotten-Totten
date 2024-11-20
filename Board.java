@@ -140,7 +140,51 @@ public class Board {
 
         }
 
-        System.out.println("|_1_||_2_||_3_||_4_||_5_||_6_||_7_||_8_||_9_|");
+        // Printing the border in the middle 
+        // Player 1 controlled borders
+        for (int i = 0; i < border.NUM_BORDER_CARDS; i++)
+        {
+            if (border.getBorder(i) == 1)
+            {
+                ColoredText.printColored("|_%d_|", i + 1, ColoredText.getColoredString(Color.RED));
+            }
+            else
+            {
+                System.out.print("  ");
+            }
+        }
+
+        System.out.print("\n");
+
+        // Not controlled border
+        for (int i = 0; i < border.NUM_BORDER_CARDS; i++)
+        {
+            if (border.getBorder(i) == 0)
+            {
+                System.out.printf("|_%d_|", i + 1);
+            }
+            else
+            {
+                System.out.print("  "); 
+            }
+        }
+        
+        System.out.print("\n");
+
+        // Player 2 controlled borders
+        for (int i = 0; i < border.NUM_BORDER_CARDS; i++)
+        {
+            if (border.getBorder(i) == 2)
+            {
+                ColoredText.printColored("|_%d_|", i + 1, ColoredText.getColoredString(Color.GREEN));
+            }
+            else
+            {
+                System.out.print("  ");
+            }
+        }
+
+        System.out.print("\n");
 
         for(int j = 0; j < 3; j++) {
                 
