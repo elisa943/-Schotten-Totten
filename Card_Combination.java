@@ -36,19 +36,47 @@ public class Card_Combination {
     }
 
     public boolean isStraightFlush() {
-        return cards.get(0).getColor() == cards.get(1).getColor() && cards.get(1).getColor() == cards.get(2).getColor() && cards.get(0).getNumber() + 1 == cards.get(1).getNumber() && cards.get(1).getNumber() + 1 == cards.get(2).getNumber();
+        return isStraight() && isFlush();
+    }
+
+    public boolean maybeStraightFlush() {
+        return maybeStraight() && maybeFlush();
     }
 
     public boolean isThreeOfAKind() {
         return cards.get(0).getNumber() == cards.get(1).getNumber() && cards.get(1).getNumber() == cards.get(2).getNumber();
     }
 
+    public boolean maybeThreeOfAKind(int number) {
+        if (getCardSize() < 2) {
+            return getCard(0).getNumber() >= number;
+        }
+        sort();
+        return getCard(0).getNumber() == getCard(1).getNumber();
+    }
+
     public boolean isFlush() {
         return cards.get(0).getColor() == cards.get(1).getColor() && cards.get(1).getColor() == cards.get(2).getColor();
     }
 
+    public static maybeFlush() {
+        if (getCardSize() < 2) {
+            return true;
+        }
+        sort();
+        return getCard(0).getColor() == getCard(1).getColor();
+    }
+
     public boolean isStraight() {
         return cards.get(0).getNumber() + 1 == cards.get(1).getNumber() && cards.get(1).getNumber() + 1 == cards.get(2).getNumber();
+    }
+
+    public boolean maybeStraight(int highestNumber) {
+        if (getCardSize() < 2) {
+            return getCard(0).getNumber() >= highestNumber - NUM_CARDS + 1;
+        }
+        sort();
+        return getCard(0).getNumber() + 1 == getCard(1).getNumber();
     }
 
     public int sum() {
@@ -70,10 +98,51 @@ public class Card_Combination {
         }
     }
 
-    public static boolean betterCombination(Combination combination, Card_Combination cardCombination) {
-        // TODO
+    public static boolean betterCombination(Card_Combination completeCombination Card_Combination cardCombination) {
+        /* Returns true if cardCombination might have a better combination */ 
+        Combination combination = completeCombination.getCombination();
+        int num_cards = cardCombination.getCardSize();
 
+        for (int i = Combination.NUM_COMBINATIONS - 1; i >= Combination.getIndex(combination; i--)) {
+            switch (Combination.getByIndex(i)) {
+                case Combination.STRAIGHT_FLUSH: 
+                    if (cardCombination.maybeStraightFlush()) {
+                        return true;
+                    }
+                    break; 
+
+                case Combination.THREE_OF_A_KIND: 
+                    if (cardCombination.maybeThreeOfAKind(completeCombination.getCard(0).getNumber())) {
+                        return true;
+                    }
+                    break; 
+
+                case Combination.FLUSH: 
+                    if (cardCombination.maybeFlush()) {
+                        return true;
+                    }
+                    break; 
+
+                case Combination.STRAIGHT: 
+                    if (cardCombination.maybeStraight(completeCombination.getCard(NUM_CARDS - 1).getNumber())) {
+                        return true;
+                    }
+                    break; 
+
+                case Combination.SUM: 
+                    int sum = completeCombination.sum();
+                    int sum_cards = 0; 
+                    for (int i = 0; i < num_cards; i++) {
+                        sum_cards += cardCombination.getCard(i).getNumber();
+                    }
+
+                    if (sum_cards > sum) {
+                        return true;
+                    } 
+                    return ((sum - sum_cards < (NUM_CARDS - num_cards) * Card.MAX_NUMBER)); 
+                    break;
+            }
+        }
         return false;
-
     }
 }
