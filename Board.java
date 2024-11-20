@@ -85,7 +85,7 @@ public class Board {
 
                 }
                 // Else checks if other player might have a better combination
-                else if (Card_Combination.betterCombination(combination, border.getCombinations(otherPlayer.getId() - 1, values[1]))) {
+                else if (Card_Combination.betterCombination(cardCombination, border.getCombinations(otherPlayer.getId() - 1, values[1]))) {
                     
                 }
                 // Else the player wins the border

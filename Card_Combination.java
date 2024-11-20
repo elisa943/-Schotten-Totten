@@ -39,8 +39,8 @@ public class Card_Combination {
         return isStraight() && isFlush();
     }
 
-    public boolean maybeStraightFlush() {
-        return maybeStraight() && maybeFlush();
+    public boolean maybeStraightFlush(int highestNumber) {
+        return maybeStraight(highestNumber) && maybeFlush();
     }
 
     public boolean isThreeOfAKind() {
@@ -59,7 +59,7 @@ public class Card_Combination {
         return cards.get(0).getColor() == cards.get(1).getColor() && cards.get(1).getColor() == cards.get(2).getColor();
     }
 
-    public static maybeFlush() {
+    public boolean maybeFlush() {
         if (getCardSize() < 2) {
             return true;
         }
@@ -98,49 +98,48 @@ public class Card_Combination {
         }
     }
 
-    public static boolean betterCombination(Card_Combination completeCombination Card_Combination cardCombination) {
+    public static boolean betterCombination(Card_Combination completeCombination, Card_Combination cardCombination) {
         /* Returns true if cardCombination might have a better combination */ 
         Combination combination = completeCombination.getCombination();
         int num_cards = cardCombination.getCardSize();
 
-        for (int i = Combination.NUM_COMBINATIONS - 1; i >= Combination.getIndex(combination; i--)) {
+        for (int i = Combination.NUM_COMBINATIONS - 1; i >= Combination.getIndex(combination); i--) {
             switch (Combination.getByIndex(i)) {
-                case Combination.STRAIGHT_FLUSH: 
-                    if (cardCombination.maybeStraightFlush()) {
+                case STRAIGHT_FLUSH: 
+                    if (cardCombination.maybeStraightFlush(completeCombination.getCard(NUM_CARDS - 1).getNumber())) {
                         return true;
                     }
                     break; 
 
-                case Combination.THREE_OF_A_KIND: 
+                case THREE_OF_A_KIND: 
                     if (cardCombination.maybeThreeOfAKind(completeCombination.getCard(0).getNumber())) {
                         return true;
                     }
                     break; 
 
-                case Combination.FLUSH: 
+                case FLUSH: 
                     if (cardCombination.maybeFlush()) {
                         return true;
                     }
                     break; 
 
-                case Combination.STRAIGHT: 
+                case STRAIGHT: 
                     if (cardCombination.maybeStraight(completeCombination.getCard(NUM_CARDS - 1).getNumber())) {
                         return true;
                     }
                     break; 
 
-                case Combination.SUM: 
+                case SUM: 
                     int sum = completeCombination.sum();
                     int sum_cards = 0; 
-                    for (int i = 0; i < num_cards; i++) {
-                        sum_cards += cardCombination.getCard(i).getNumber();
+                    for (int j = 0; j < num_cards; j++) {
+                        sum_cards += cardCombination.getCard(j).getNumber();
                     }
 
                     if (sum_cards > sum) {
                         return true;
                     } 
                     return ((sum - sum_cards < (NUM_CARDS - num_cards) * Card.MAX_NUMBER)); 
-                    break;
             }
         }
         return false;
