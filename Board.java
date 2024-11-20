@@ -60,7 +60,7 @@ public class Board {
         Player otherPlayer = player2;
         while(start) {
             // Displays the game board
-            displayBoard();
+            displayBoard(startingPlayer);
             displayHand(startingPlayer);
 
             // startingPlayer plays
@@ -82,11 +82,11 @@ public class Board {
                 
                 // Checks if other player has a full combination
                 if (border.getCombinations(otherPlayer.getId() - 1, values[1]).getCardSize() == 3) {
-
+                    
                 }
                 // Else checks if other player might have a better combination
                 else if (Card_Combination.betterCombination(cardCombination, border.getCombinations(otherPlayer.getId() - 1, values[1]))) {
-                    
+                    // Do nothing
                 }
                 // Else the player wins the border
                 else {
@@ -110,12 +110,18 @@ public class Board {
         System.out.println(border.bordersControlledBy(player2).toString());
     }
 
-    public void displayBoard() {
+    public void displayBoard(Player player) {
         ColoredText.clear();
         String spaceBetweenNumbers = "    "; 
 
-        System.out.printf("Player 1 : %s\n\n", player1.getName());
- 
+        // Banner to display which player is playing
+        System.out.println("Schotten-Totten");
+        System.out.println("Player : " + player.getName());
+        System.out.println("===============");
+
+
+        System.out.printf("Player : %s\n\n", player1.getName());
+
         for(int j = 2; j > -1; j--) {
 
             System.out.print("  "); 
