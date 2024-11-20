@@ -113,10 +113,15 @@ public class Board {
         String spaceBetweenNumbers = "    "; 
 
         System.out.printf("Player 1 : %s\n\n", player1.getName());
+ 
+        for(int j = 2; j > -1; j--) {
 
-        for(int i = 0; i < border.NUM_BORDER_CARDS; i++) {
             System.out.print("  "); 
-            for(int j = 2; j > -1; j--) {
+
+            for(int i = 0; i < border.NUM_BORDER_CARDS; i++) 
+            {
+                // System.out.print("  "); 
+
                 Card cardJ = border.getCombinations(0,i).getCard(j); 
 
                 if (cardJ == null)
@@ -130,14 +135,20 @@ public class Board {
 
                 System.out.print(spaceBetweenNumbers);
             }
+            
             System.out.print("\n");
+
         }
 
         System.out.println("|_1_||_2_||_3_||_4_||_5_||_6_||_7_||_8_||_9_|");
 
-        for(int i = 0; i < border.NUM_BORDER_CARDS; i++) {
+        for(int j = 0; j < 3; j++) {
+                
             System.out.print("  "); 
-            for(int j = 0; j < 3; j++) {
+
+            for(int i = 0; i < border.NUM_BORDER_CARDS; i++) 
+            {
+
                 Card cardJ = border.getCombinations(1,i).getCard(j);
 
                 if (cardJ == null) {
@@ -146,10 +157,13 @@ public class Board {
                 else {
                     ColoredText.coloredCard(cardJ); 
                 }
-
+                
                 System.out.print(spaceBetweenNumbers);
+
             }
+            
             System.out.print("\n");
+
         }
 
         System.out.printf("\nPlayer 2 : %s\n", player2.getName());
