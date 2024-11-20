@@ -64,13 +64,13 @@ public class Board {
             displayHand(startingPlayer);
 
             // startingPlayer plays
-            int values[] = startingPlayer.getCardIndexFromUser();
+            int values[] = startingPlayer.getCardIndexFromUser(); // (cardIndex, positionIndex)
+            
+            // Adds card to the border
+            border.setCombinations(startingPlayer.getCardFromHand(values[0]), startingPlayer.getId() - 1, values[1]);
 
             // Removes card from hand
             startingPlayer.removeCardFromHand(startingPlayer.getCardFromHand(values[0]));
-
-            // Adds card to the border
-            border.setCombinations(startingPlayer.getCardFromHand(values[0]), startingPlayer.getId() - 1, values[1]);
 
             // Draws card from deck
             startingPlayer.addCardToHand(deck.getCard());
@@ -91,7 +91,6 @@ public class Board {
                     border.setBorder(startingPlayer.getId(), values[1]);
                 }
             }
-
 
             // Check if the game is over
             start = gameOver() == 0;
@@ -116,6 +115,7 @@ public class Board {
         System.out.printf("Player 1 : %s\n\n", player1.getName());
 
         for(int i = 0; i < border.NUM_BORDER_CARDS; i++) {
+            System.out.print("  "); 
             for(int j = 2; j > -1; j--) {
                 Card cardJ = border.getCombinations(0,i).getCard(j); 
 
@@ -125,7 +125,7 @@ public class Board {
                 }
                 else
                 {
-                    System.out.print(cardJ.getNumber());
+                    ColoredText.coloredCard(cardJ); 
                 }
 
                 System.out.print(spaceBetweenNumbers);
@@ -136,14 +136,15 @@ public class Board {
         System.out.println("|_1_||_2_||_3_||_4_||_5_||_6_||_7_||_8_||_9_|");
 
         for(int i = 0; i < border.NUM_BORDER_CARDS; i++) {
+            System.out.print("  "); 
             for(int j = 0; j < 3; j++) {
-                Card cardJ = border.getCombinations(0,i).getCard(j);
+                Card cardJ = border.getCombinations(1,i).getCard(j);
 
                 if (cardJ == null) {
                     System.out.print(" ");
                 }
                 else {
-                    System.out.print(cardJ.getNumber());
+                    ColoredText.coloredCard(cardJ); 
                 }
 
                 System.out.print(spaceBetweenNumbers);

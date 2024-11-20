@@ -56,7 +56,7 @@ public class Player {
     }
 
     public int[] getCardIndexFromUser() {
-        /* Returns the card index picked by the player */
+        /* Returns the card index (starts at 0) picked by the player */
         Scanner scanner = new Scanner(System.in);
         int cardNumber = -1; 
         int borderNumber = -1;
