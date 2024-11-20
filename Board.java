@@ -75,15 +75,17 @@ public class Board {
             // Draws card from deck
             startingPlayer.addCardToHand(deck.getCard());
 
-            // Checks if a combination is complete
-            if (border.getCombinations(startingPlayer.getId() - 1, values[1]).getCardSize() == 3) {
-                Combination combination = border.getCombinations(startingPlayer.getId() - 1, values[1]).getCombination();
+            // Checks if the new combination is complete
+            Card_Combination cardCombination = border.getCombinations(startingPlayer.getId() - 1, values[1]);
+            if (cardCombination.getCardSize() == 3) {
+                Combination combination = cardCombination.getCombination();
+                
                 // Checks if other player has a full combination
                 if (border.getCombinations(otherPlayer.getId() - 1, values[1]).getCardSize() == 3) {
 
                 }
                 // Else checks if other player might have a better combination
-                else if (Card_Combination.betterCombination(combination, border.getCombinations(otherPlayer.getId() - 1, values[1]))) {
+                else if (Card_Combination.betterCombination(cardCombination, border.getCombinations(otherPlayer.getId() - 1, values[1]))) {
                     
                 }
                 // Else the player wins the border
