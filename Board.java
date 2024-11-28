@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.io.IOException;
 
 public class Board {
-    private Player player1;
-    private Player player2;
-    private Deck deck;
-    private Border border;
+    protected Player player1;
+    protected Player player2;
+    protected Deck deck;
+    protected Border border;
 
     public Board() {
         player1 = new Player("Player 1", 1);
@@ -37,23 +37,26 @@ public class Board {
         return border;
     }
 
-    // private void setTerminalSize(int width, int height) {
-    //     try {
-    //         if (System.getProperty("os.name").toLowerCase().contains("win")) {
-    //             // Commande pour Windows
-    //             new ProcessBuilder("cmd", "/c", "mode con: cols=" + width + " lines=" + height).inheritIO().start().waitFor();
-    //         } else {
-    //             // Commande pour Unix (Linux et macOS)
-    //             String[] cmd = {"resize -s " + height + " " + width};
-    //             Runtime.getRuntime().exec(cmd);
-    //         }
-    //     } catch (IOException | InterruptedException e) {
-    //         e.printStackTrace();
-    //     }
-    // }
+    private void setTerminalSize(int width, int height) {
+        try {
+            if (System.getProperty("os.name").toLowerCase().contains("win")) {
+                // Commande pour Windows
+                new ProcessBuilder("cmd", "/c", "mode con: cols=" + width + " lines=" + height)
+                    .inheritIO()
+                    .start()
+                    .waitFor();
+            } else {
+                // Commande pour Unix (Linux et macOS)
+                String[] cmd = {"/bin/sh", "-c", "printf '\\e[8;" + height + ";" + width + "t'"};
+                new ProcessBuilder(cmd).inheritIO().start().waitFor();
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void startGame() {
-        // setTerminalSize(80, 27);
+        setTerminalSize(50, 30);
         ColoredText.clear();
         boolean start = true; 
         Player startingPlayer = player1;
@@ -82,7 +85,13 @@ public class Board {
                 
                 // Checks if other player has a full combination
                 if (border.getCombinations(otherPlayer.getId() - 1, values[1]).getCardSize() == 3) {
-                    
+                    if (cardCombination.isBetter(border.getCombinations(otherPlayer.getId() - 1, values[1]))) {
+                        // startingPlayer wins the border
+                        border.setBorder(startingPlayer.getId(), values[1]);
+                    } else {
+                        // otherPlayer wins the border
+                        border.setBorder(otherPlayer.getId(), values[1]);
+                    }
                 }
                 // Else checks if other player might have a better combination
                 else if (Card_Combination.betterCombination(cardCombination, border.getCombinations(otherPlayer.getId() - 1, values[1]))) {
@@ -101,26 +110,23 @@ public class Board {
         }
     }
 
-    public void printBoardState() {
-        /* Imprime l'état actuel du plateau */
-        System.out.println("Frontières contrôlées par " + player1.getName() + " : ");
-        System.out.println(border.bordersControlledBy(player1).toString());
+    // public void printBoardState() {
+    //     /* Imprime l'état actuel du plateau */
+    //     System.out.println("Frontières contrôlées par " + player1.getName() + " : ");
+    //     System.out.println(border.bordersControlledBy(player1).toString());
 
-        System.out.println("Frontières contrôlées par " + player2.getName() + " : ");
-        System.out.println(border.bordersControlledBy(player2).toString());
-    }
+    //     System.out.println("Frontières contrôlées par " + player2.getName() + " : ");
+    //     System.out.println(border.bordersControlledBy(player2).toString());
+    // }
 
     public void displayBoard(Player player) {
         ColoredText.clear();
         String spaceBetweenNumbers = "    "; 
 
-        // Banner to display which player is playing
-        System.out.println("Schotten-Totten");
-        System.out.println("Player : " + player.getName());
-        System.out.println("===============");
+        UserInterface.displayBanner();
+        System.out.println("\t\t===============");
 
-
-        System.out.printf("Player : %s\n\n", player1.getName());
+        System.out.printf("\t\t   %s\n\n", player1.getName());
 
         for(int j = 2; j > -1; j--) {
 
@@ -216,7 +222,11 @@ public class Board {
 
         }
 
-        System.out.printf("\nPlayer 2 : %s\n", player2.getName());
+        System.out.printf("\n\t\t   %s\n", player2.getName());
+        System.out.println("\t\t===============");
+
+        // Banner to display which player is playing
+        System.out.println(player.getName() + " is playing");
     }
 
     public static void displayHand(Player player) {

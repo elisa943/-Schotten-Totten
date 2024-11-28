@@ -3,6 +3,11 @@ public class Card {
     private Color color; 
     public static final int MAX_NUMBER = 9;
     
+    public Card() {
+        this.number = -1;
+        this.color = null;
+    }
+
     public Card(int number, Color color) {
         this.number = number;
         this.color = color;

@@ -3,7 +3,7 @@ import java.util.Collections;
 
 public class Deck {
     // pioche (pile)
-    private ArrayList<Card> stack;
+    protected ArrayList<Card> stack;
     public static final int NUM_NUMBERS = 9;
     public static final int NUM_CARDS_PER_PLAYER = 6;
 

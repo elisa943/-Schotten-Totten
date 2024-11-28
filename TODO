@@ -32,6 +32,19 @@ Classes : https://regle.escaleajeux.fr/schot_rg.pdf
     Card Number: 4
     Border number: 3 
 
+    /~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\
+    |                              |
+    |  Welcome to Schotten-Totten  |
+    |                              |
+    \~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~/
+
+    ╔══════════════════════════════╗
+    ║                              ║
+    ║  Welcome to Schotten-Totten  ║
+    ║                              ║
+    ╚══════════════════════════════╝
+
+
 - Main 
 - IA (get_all_actions)
 - Carte_Tactique 

@@ -148,4 +148,10 @@ public class Card_Combination {
         }
         return false;
     }
+
+    public boolean isBetter(Card_Combination cardCombination) {
+        /* Returns true if the object has a better combination than cardCombination */
+        /* It is assumed that both card combinations are complete */
+        return Combination.getIndex(getCombination()) > Combination.getIndex(cardCombination.getCombination());
+    }
 }

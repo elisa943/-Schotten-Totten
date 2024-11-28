@@ -6,15 +6,16 @@ public class Player {
     int id;
     String name; 
     private ArrayList<Card> hand;
+    private ArrayList<TacticCard> tacticHand;
 
-    // Constructeur
+    // Constructors 
     public Player(String name, int id) {
         this.name = name;
         //this.hand = new ArrayList<>();    
         this.id = id; 
     }
 
-    // Methodes
+    // Methods
     public void addCardToHand(Card card) {
         if (card == null) {
             return;
@@ -51,8 +52,20 @@ public class Player {
         return hand;
     }
 
+    public void setTacticHand(ArrayList<TacticCard> tacticHand) {
+        this.tacticHand = tacticHand;
+    }
+
+    public ArrayList<TacticCard> getTacticHand() {
+        return tacticHand;
+    }
+
     public Card getCardFromHand(int index) {
         return hand.get(index);
+    }
+
+    public TacticCard getTacticCardFromHand(int index) {
+        return tacticHand.get(index);
     }
 
     public int[] getCardIndexFromUser() {
