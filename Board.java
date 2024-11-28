@@ -177,7 +177,7 @@ public class Board {
             }
             else
             {
-                System.out.print("  "); 
+                System.out.print("      "); 
             }
         }
         
@@ -192,7 +192,7 @@ public class Board {
             }
             else
             {
-                System.out.print("  ");
+                System.out.print("      ");
             }
         }
 
