@@ -51,7 +51,7 @@ public class TacticalVariant extends Board {
             displayHand(startingPlayer);
 
             // startingPlayer plays
-            int values[] = startingPlayer.getCardIndexFromUser(); // (cardIndex, positionIndex)
+            int values[] = startingPlayer.getCardIndexFromUser(border, startingPlayer); // (cardIndex, positionIndex)
             
             // Check if the player wants to play a tactic card
             // TODO 

@@ -68,43 +68,35 @@ public class Player {
         return tacticHand.get(index);
     }
 
-    public int[] getCardIndexFromUser() {
+    public int[] getCardIndexFromUser(Border border, Player player) {
         /* Returns the card index (starts at 0) picked by the player */
         Scanner scanner = new Scanner(System.in);
         int cardNumber = -1; 
         int borderNumber = -1;
 
-        int validCardNumber = 0;
-        int validBorderNumber = 0;
-
-        while ((cardNumber <= 0 || cardNumber > hand.size()) && (validCardNumber == 0)) {
-
+        while ((cardNumber <= 0 || cardNumber > hand.size())) {
             System.out.print("Choose a card to play (enter a white number): ");
             cardNumber = scanner.nextInt();
 
-            if (cardNumber < 1 || cardNumber > hand.size()) {
-                System.out.println("Invalid card number. Please choose a valid card.");
-                cardNumber = -1;
+            if (cardNumber >= 1 && cardNumber <= hand.size()) {
+                break;
             }
-            else
-            {
-                validCardNumber = 1;
-            }
+            System.out.println("Invalid card number. Please choose a valid card.");
+            cardNumber = -1;
         }
         
-        while ((borderNumber <= 0 || borderNumber > Border.NUM_BORDER_CARDS) && (validBorderNumber == 0)) {
+        while ((borderNumber <= 0 || borderNumber > Border.NUM_BORDER_CARDS)) {
 
             System.out.print("Choose a border to put the card: ");
             borderNumber = scanner.nextInt();
 
-            if (borderNumber < 1 || borderNumber > Border.NUM_BORDER_CARDS) {
-                System.out.println("Invalid border number. Please choose a valid border.");
-                borderNumber = -1;
+            if (borderNumber >= 1 && borderNumber <= Border.NUM_BORDER_CARDS) {
+                if (!(border.isBorderIndexFull(borderNumber-1, player))) {
+                    break;
+                }
             }
-            else
-            {
-                validBorderNumber = 1;
-            }
+            System.out.println("Invalid border number. Please choose a valid border.");
+            borderNumber = -1;
         }
 
         //scanner.close();

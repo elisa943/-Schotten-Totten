@@ -37,7 +37,7 @@ public class Board {
         return border;
     }
 
-    private void setTerminalSize(int width, int height) {
+    protected void setTerminalSize(int width, int height) {
         try {
             if (System.getProperty("os.name").toLowerCase().contains("win")) {
                 // Commande pour Windows
@@ -67,7 +67,7 @@ public class Board {
             displayHand(startingPlayer);
 
             // startingPlayer plays
-            int values[] = startingPlayer.getCardIndexFromUser(); // (cardIndex, positionIndex)
+            int values[] = startingPlayer.getCardIndexFromUser(border, startingPlayer); // (cardIndex, positionIndex)
             
             // Adds card to the border
             border.setCombinations(startingPlayer.getCardFromHand(values[0]), startingPlayer.getId() - 1, values[1]);
