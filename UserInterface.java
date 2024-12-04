@@ -46,6 +46,20 @@ class UserInterface {
         System.out.print("Enter your choice (1 or 2): ");
     }
 
+    public static void displayAIPick() {
+        ColoredText.clear();
+        UserInterface.displayBanner();
+        System.out.println();
+
+        System.out.println("Do you want to play against an AI?");
+        System.out.println("[1] Yes");
+        System.out.println("[2] No");
+
+        System.out.println();
+
+        System.out.print("Enter your choice (1 or 2): ");
+    }
+
     public static int pick_menu(Scanner scanner) {
         displayMainMenu();
 
@@ -64,7 +78,6 @@ class UserInterface {
 
     public static int pick_variant(Scanner scanner) {
         displayStartScreen();
-
         int choice = -1;
         while (choice != 1 && choice != 2) {
             choice = scanner.nextInt();
@@ -73,8 +86,19 @@ class UserInterface {
                 displayStartScreen();
             }
         }
-        System.out.println("You chose: " + choice);
         return choice;
     }
 
+    public static int pick_ai(Scanner scanner) {
+        displayAIPick();
+        int choice = -1;
+        while (choice != 1 && choice != 2) {
+            choice = scanner.nextInt();
+            if (choice != 1 && choice != 2) {
+                ColoredText.clear();
+                displayAIPick();
+            }
+        }
+        return choice;
+    }
 }

@@ -1,8 +1,8 @@
 public class TacticalVariant extends Board {
     protected TacticDeck tacticDeck;
 
-    public TacticalVariant() {
-        super();
+    public TacticalVariant(boolean isAI) {
+        super(isAI);
         tacticDeck = new TacticDeck();
     }
 

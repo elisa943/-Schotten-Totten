@@ -3,10 +3,10 @@ import java.util.Scanner;
 
 public class Player {
     // Attributs
-    int id;
-    String name; 
-    private ArrayList<Card> hand;
-    private ArrayList<TacticCard> tacticHand;
+    protected int id;
+    protected String name; 
+    protected ArrayList<Card> hand;
+    protected ArrayList<TacticCard> tacticHand;
 
     // Constructors 
     public Player(String name, int id) {

@@ -107,6 +107,10 @@ public class Card_Combination {
         Combination combination = completeCombination.getCombination();
         int num_cards = cardCombination.getCardSize();
 
+        if (cardCombination.getCardSize() == 0) {
+            return true;
+        }
+
         for (int i = Combination.NUM_COMBINATIONS - 1; i >= Combination.getIndex(combination); i--) {
             switch (Combination.getByIndex(i)) {
                 case STRAIGHT_FLUSH: 

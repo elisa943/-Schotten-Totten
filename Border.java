@@ -47,7 +47,10 @@ public class Border {
 
     public boolean isBorderIndexFull(int index, Player player) {
         int playerID = player.getId();
-        return (combinations[playerID - 1][index].getCardSize() >= 3);
+        if (playerID > 0) {
+            return (combinations[playerID - 1][index].getCardSize() >= 3);
+        }
+        return (combinations[0][index].getCardSize() >= 3);
     }
 
     public Card_Combination getCombinations(int i, int j)

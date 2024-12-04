@@ -7,9 +7,14 @@ public class Board {
     protected Deck deck;
     protected Border border;
 
-    public Board() {
-        player1 = new Player("Player 1", 1);
-        player2 = new Player("Player 2", 2);
+    public Board(boolean isAI) {
+        if (isAI) {
+            player1 = new AIPlayer("AI", 0);
+            player2 = new Player("Player 1", 2);
+        } else {
+            player1 = new Player("Player 1", 1);
+            player2 = new Player("Player 2", 2);
+        }
         deck = new Deck(player1, player2);
         border = new Border();
     }
@@ -61,16 +66,23 @@ public class Board {
         boolean start = true; 
         Player startingPlayer = player1;
         Player otherPlayer = player2;
+
         while(start) {
             // Displays the game board
             displayBoard(startingPlayer);
             displayHand(startingPlayer);
 
             // startingPlayer plays
-            int values[] = startingPlayer.getCardIndexFromUser(border, startingPlayer); // (cardIndex, positionIndex)
-            
-            // Adds card to the border
-            border.setCombinations(startingPlayer.getCardFromHand(values[0]), startingPlayer.getId() - 1, values[1]);
+            int values[];
+            if (startingPlayer.getId() == 0) {
+                values = ((AIPlayer) startingPlayer).getCardIndexFromAI(border, startingPlayer);
+                // Adds card to the border
+                border.setCombinations(startingPlayer.getCardFromHand(values[0]), startingPlayer.getId(), values[1]);
+            } else {
+                values = startingPlayer.getCardIndexFromUser(border, startingPlayer); // (cardIndex, positionIndex)
+                // Adds card to the border
+                border.setCombinations(startingPlayer.getCardFromHand(values[0]), startingPlayer.getId() - 1, values[1]);
+            }
 
             // Removes card from hand
             startingPlayer.removeCardFromHand(startingPlayer.getCardFromHand(values[0]));
@@ -79,27 +91,51 @@ public class Board {
             startingPlayer.addCardToHand(deck.getCard());
 
             // Checks if the new combination is complete
-            Card_Combination cardCombination = border.getCombinations(startingPlayer.getId() - 1, values[1]);
+            Card_Combination cardCombination; 
+            if (startingPlayer.getId() == 0) {
+                cardCombination = border.getCombinations(startingPlayer.getId(), values[1]);
+            } else {
+                cardCombination = border.getCombinations(startingPlayer.getId() - 1, values[1]);
+            }
+
             if (cardCombination.getCardSize() == 3) {
                 Combination combination = cardCombination.getCombination();
-                
+                Card_Combination cardCombination_other; 
+                if (otherPlayer.getId() == 0) {
+                    cardCombination_other = border.getCombinations(otherPlayer.getId(), values[1]);
+                } else {
+                    cardCombination_other = border.getCombinations(otherPlayer.getId() - 1, values[1]);
+                }
                 // Checks if other player has a full combination
-                if (border.getCombinations(otherPlayer.getId() - 1, values[1]).getCardSize() == 3) {
-                    if (cardCombination.isBetter(border.getCombinations(otherPlayer.getId() - 1, values[1]))) {
+                if (cardCombination_other.getCardSize() == 3) {
+                    if (cardCombination.isBetter(cardCombination_other)) {
                         // startingPlayer wins the border
-                        border.setBorder(startingPlayer.getId(), values[1]);
+                        if (startingPlayer.getId() == 0) {
+                            border.setBorder(startingPlayer.getId() + 1, values[1]);
+                        } else {
+                            border.setBorder(startingPlayer.getId(), values[1]);
+                        }
+
                     } else {
                         // otherPlayer wins the border
-                        border.setBorder(otherPlayer.getId(), values[1]);
+                        if (otherPlayer.getId() == 0) {
+                            border.setBorder(otherPlayer.getId() + 1, values[1]);
+                        } else {
+                            border.setBorder(otherPlayer.getId(), values[1]);
+                        }
                     }
                 }
                 // Else checks if other player might have a better combination
-                else if (Card_Combination.betterCombination(cardCombination, border.getCombinations(otherPlayer.getId() - 1, values[1]))) {
+                else if (Card_Combination.betterCombination(cardCombination, cardCombination_other)) {
                     // Do nothing
                 }
                 // Else the player wins the border
                 else {
-                    border.setBorder(startingPlayer.getId(), values[1]);
+                    if (startingPlayer.getId() == 0) {
+                        border.setBorder(startingPlayer.getId() + 1, values[1]);
+                    } else {
+                        border.setBorder(startingPlayer.getId(), values[1]);
+                    }
                 }
             }
 
