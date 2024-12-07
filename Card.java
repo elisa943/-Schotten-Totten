@@ -1,6 +1,6 @@
 public class Card {
-    private int number; 
-    private Color color; 
+    protected int number; 
+    protected Color color; 
     public static final int MAX_NUMBER = 9;
     
     public Card() {

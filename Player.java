@@ -7,6 +7,7 @@ public class Player {
     protected String name; 
     protected ArrayList<Card> hand;
     protected ArrayList<TacticCard> tacticHand;
+    public static final int MAX_NUM_TAC_CARDS = 7;
 
     // Constructors 
     public Player(String name, int id) {
@@ -23,6 +24,13 @@ public class Player {
         hand.add(card);
     }
     
+    public void addCardToTacticHand(TacticCard card) {
+        if (card == null) {
+            return;
+        }
+        tacticHand.add(card);
+    }
+
     public void removeCardFromHand(Card card) {
         hand.remove(card);
     }

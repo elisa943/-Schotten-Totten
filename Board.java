@@ -128,9 +128,7 @@ public class Board {
                 // Else checks if other player might have a better combination
                 else if (Card_Combination.betterCombination(cardCombination, cardCombination_other)) {
                     // Do nothing
-                }
-                // Else the player wins the border
-                else {
+                } else { // Else the player wins the border
                     if (startingPlayer.getId() == 0) {
                         border.setBorder(startingPlayer.getId() + 1, values[1]);
                     } else {
