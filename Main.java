@@ -4,26 +4,24 @@ public class Main {
     public static Scanner scanner;
 
     public static void main(String[] args) {
-        scanner = new Scanner(System.in);
         int choice = -1; 
         int variant = -1;
         int ai = -1;
 
         while (choice == -1 && variant == -1 && ai == -1) {
-            choice = UserInterface.pick_menu(scanner);
+            choice = UserInterface.pick_menu();
 
             if (choice == 1) {
-                variant = UserInterface.pick_variant(scanner);
+                variant = UserInterface.pick_variant();
 
                 if (variant == 1) {
-                    ai = UserInterface.pick_ai(scanner);
+                    ai = UserInterface.pick_ai();
                 }
             }
         }
         if (variant == 1) {
             // Start the game
             System.out.println("Starting the game...");
-
             Board board = new Board(ai == 1);
             board.startGame();
         } else if (variant == 2) {
@@ -31,8 +29,7 @@ public class Main {
             board.startGame();
         }
 
-        // Close the scanner
-        scanner.close();
+        UserInterface.close();
     }
     
 

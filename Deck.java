@@ -46,15 +46,22 @@ public class Deck {
         return stack.remove(0);
     }
 
+    public boolean isEmpty() {
+        return stack.isEmpty();
+    }
+
     public void shuffle() {
         Collections.shuffle(stack);
     }
 
-    // Card distribution
     public void distribute(Player player) {
+        /* Distributes cards to the player and removes them from the stack */
         ArrayList<Card> hand = new ArrayList<Card>();
+        Card card;
         for (int i = 0; i < NUM_CARDS_PER_PLAYER; i++) {
-            hand.add(getCard());
+            card = getCard();
+            hand.add(card);
+            stack.remove(card);
         }
         player.setHand(hand);
     }

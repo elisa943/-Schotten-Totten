@@ -1,6 +1,6 @@
 public enum TacticCards {
     JOKER, SPY, SHIELD_BEARER, BLIND_MAN_BLUFF, MUD_FIGHT, RECRUITER, STRATEGIST, BANSHEE, TRAITOR;
-    public static final int NUM_TACTIC_CARDS = 3;
+    public static final int NUM_TACTIC_CARDS = 9;
 
     public static TacticCards getByIndex(int index) {
         return TacticCards.values()[index];
@@ -34,4 +34,29 @@ public enum TacticCards {
                 return "";
         }
     }
-};
+
+    public static String getTacticCardAbr(TacticCards card) {
+        switch (card) {
+            case JOKER:
+                return "JO";
+            case SPY:
+                return "SP";
+            case SHIELD_BEARER:
+                return "SB";
+            case BLIND_MAN_BLUFF:
+                return "BB";
+            case MUD_FIGHT:
+                return "MF";
+            case RECRUITER:
+                return "RE";
+            case STRATEGIST:
+                return "ST";
+            case BANSHEE:
+                return "BA";
+            case TRAITOR:
+                return "TR";  
+            default:
+                return "";  
+        }
+    }
+}

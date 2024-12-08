@@ -1,6 +1,9 @@
 import java.util.Scanner;
 
 class UserInterface {
+
+    public static Scanner scanner = new Scanner(System.in);
+
     public static void displayBanner() {
         System.out.println( "\t/~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\\"); 
         System.out.println( "\t|                               |");
@@ -60,7 +63,7 @@ class UserInterface {
         System.out.print("Enter your choice (1 or 2): ");
     }
 
-    public static int pick_menu(Scanner scanner) {
+    public static int pick_menu() {
         displayMainMenu();
 
         int choice = -1;
@@ -76,7 +79,7 @@ class UserInterface {
         return choice; 
     }
 
-    public static int pick_variant(Scanner scanner) {
+    public static int pick_variant() {
         displayStartScreen();
         int choice = -1;
         while (choice != 1 && choice != 2) {
@@ -89,7 +92,7 @@ class UserInterface {
         return choice;
     }
 
-    public static int pick_ai(Scanner scanner) {
+    public static int pick_ai() {
         displayAIPick();
         int choice = -1;
         while (choice != 1 && choice != 2) {
@@ -100,5 +103,24 @@ class UserInterface {
             }
         }
         return choice;
+    }
+
+    public static int which_deck() {
+        System.out.println("Which deck do you want to use?");
+        System.out.println("[1] Classic Deck");
+        System.out.println("[2] Tactical Deck");
+        System.out.print("Enter your choice (1 or 2): ");
+        int choice = -1;
+        while (choice != 1 && choice != 2) {
+            choice = scanner.nextInt();
+            if (choice != 1 && choice != 2) {
+                System.out.println("Invalid choice. Please choose a valid deck.");
+            }
+        }
+        return choice;
+    }
+
+    public static void close() {
+        scanner.close();
     }
 }

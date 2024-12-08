@@ -101,11 +101,8 @@ public class Board {
             if (cardCombination.getCardSize() == 3) {
                 Combination combination = cardCombination.getCombination();
                 Card_Combination cardCombination_other; 
-                if (otherPlayer.getId() == 0) {
-                    cardCombination_other = border.getCombinations(otherPlayer.getId(), values[1]);
-                } else {
-                    cardCombination_other = border.getCombinations(otherPlayer.getId() - 1, values[1]);
-                }
+                cardCombination_other = border.getCombinations(Math.max(0, otherPlayer.getId() - 1), values[1]);
+
                 // Checks if other player has a full combination
                 if (cardCombination_other.getCardSize() == 3) {
                     if (cardCombination.isBetter(cardCombination_other)) {

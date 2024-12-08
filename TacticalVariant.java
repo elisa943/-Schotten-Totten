@@ -3,7 +3,7 @@ public class TacticalVariant extends Board {
 
     public TacticalVariant(boolean isAI) {
         super(isAI);
-        tacticDeck = new TacticDeck();
+        tacticDeck = new TacticDeck(player1, player2);
     }
 
     public TacticalVariant(Player player1, Player player2, Deck deck, Border border, TacticDeck tacticDeck) {
@@ -20,9 +20,9 @@ public class TacticalVariant extends Board {
         Board.displayHand(player);
 
         // Displays the player's tactic hand
-        System.out.println("Tactic cards: ");
+        System.out.print("Tactic cards: ");
         for (int i = 0; i < player.getTacticHand().size(); i++) {
-            System.out.print(TacticCards.getTacticCardName(player.getTacticHand().get(i).getTacticCard()) + " ");
+            System.out.print(TacticCards.getTacticCardAbr(player.getTacticHand().get(i).getTacticCard()) + " ");
         }
 
         // Displays the buttons below the hand
@@ -30,8 +30,11 @@ public class TacticalVariant extends Board {
         System.out.println();
         System.out.print("              ");
         for (int i = 0; i < player.getTacticHand().size(); i++) {
-            System.out.print(Integer.toString(n+i));
-            for (int j = 0; j < TacticCards.getTacticCardName(player.getTacticHand().get(i).getTacticCard()).length(); j++) {
+            System.out.print(Integer.toString(n+i+1));
+
+            if (i < 9) {
+                System.out.print("  ");
+            } else {
                 System.out.print(" ");
             }
         }
@@ -39,8 +42,22 @@ public class TacticalVariant extends Board {
         System.out.println();
     }
 
+    public boolean tacticCardPlayed(Player player, int cardIndex) {
+        /* Returns true if a tactic card was played */
+        if (cardIndex < player.getHand().size()) {
+            return false;
+        }
+
+        if (cardIndex >= player.getHand().size() + player.getTacticHand().size()) {
+            return false;
+        }
+
+        return true;
+    }
+
     @Override
     public void startGame() {
+        setTerminalSize(50, 30);
         ColoredText.clear();
         boolean start = true; 
         Player startingPlayer = player1;
@@ -54,9 +71,35 @@ public class TacticalVariant extends Board {
             int values[] = startingPlayer.getCardIndexFromUser(border, startingPlayer); // (cardIndex, positionIndex)
             
             // Check if the player wants to play a tactic card
-            // TODO 
+            Card card;
+            if (tacticCardPlayed(startingPlayer, values[0])) {
+                // If so, play the tactic card 
+                card = startingPlayer.getTacticCardFromHand(values[0] - startingPlayer.getHand().size());
+                // Adds card to the border
+                // playTacticCard(startingPlayer, values[1], card);
+                // Removes card from hand
+                startingPlayer.removeCardFromTacticHand((TacticCard) card);
+            } else {
+                // If not, play the regular card
+                card = startingPlayer.getCardFromHand(values[0]);
+                // Adds card to the border
+                border.setCombinations(card, (Math.max(0, startingPlayer.getId() - 1)), values[1]);
+                // Removes card from hand
+                startingPlayer.removeCardFromHand(card);
+            }
 
-            // Adds card to the border
+            // Updates the board 
+            displayBoard(startingPlayer);
+
+            // Ask player which deck to draw from if both decks are not empty
+            int deck_picked = UserInterface.which_deck(); 
+
+            // Draws card from deck if deck is not empty
+            if (deck_picked == 1) {
+                startingPlayer.addCardToHand(deck.getCard());
+            } else {
+                startingPlayer.addCardToHand((TacticCard) tacticDeck.getCard());
+            }
         }
     }
 }

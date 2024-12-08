@@ -34,6 +34,10 @@ public class Player {
     public void removeCardFromHand(Card card) {
         hand.remove(card);
     }
+
+    public void removeCardFromTacticHand(TacticCard card) {
+        tacticHand.remove(card);
+    }
     
     // Setters et getters
     public void setId(int id) {
@@ -111,5 +115,4 @@ public class Player {
         int[] numbers = {cardNumber-1, borderNumber-1};
         return numbers;
     }
-
 }
