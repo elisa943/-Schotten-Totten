@@ -29,7 +29,7 @@ public class TacticDeck extends Deck {
     public void distributeTacticHand(Player player) {
         ArrayList<TacticCard> tacticHand = new ArrayList<TacticCard>();
         TacticCard card;
-        for (int i = 0; i < Player.MAX_NUM_TAC_CARDS; i++) {
+        for (int i = 0; i < Player.NUM_TAC_CARDS; i++) {
             card = (TacticCard) getCard();
             tacticHand.add(card);
             stack.remove(card);

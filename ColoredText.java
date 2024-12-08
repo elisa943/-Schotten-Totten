@@ -49,7 +49,10 @@ public class ColoredText {
 
     public static void coloredCard(Card card) {
         if (card != null) {
-            printColored(Integer.toString(card.getNumber()), getColoredString(card.getColor()));
+            if (card.getNumber() != -1) {
+                printColored(Integer.toString(card.getNumber()), getColoredString(card.getColor()));
+            }
+            
         } 
     }
 

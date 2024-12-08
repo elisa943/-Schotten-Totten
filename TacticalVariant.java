@@ -19,7 +19,12 @@ public class TacticalVariant extends Board {
         // Displays the player's hand
         Board.displayHand(player);
 
-        // Displays the player's tactic hand
+        // Displays the player's tactic hand if there are tactic cards
+        if (player.getTacticHand().size() == 0) {
+            System.out.println();
+            return;
+        }
+
         System.out.print("Tactic cards: ");
         for (int i = 0; i < player.getTacticHand().size(); i++) {
             System.out.print(TacticCards.getTacticCardAbr(player.getTacticHand().get(i).getTacticCard()) + " ");
@@ -32,7 +37,7 @@ public class TacticalVariant extends Board {
         for (int i = 0; i < player.getTacticHand().size(); i++) {
             System.out.print(Integer.toString(n+i+1));
 
-            if (i < 9) {
+            if (n+i+1 <= 9) {
                 System.out.print("  ");
             } else {
                 System.out.print(" ");
@@ -91,15 +96,24 @@ public class TacticalVariant extends Board {
             // Updates the board 
             displayBoard(startingPlayer);
 
-            // Ask player which deck to draw from if both decks are not empty
+            // Ask player which deck to draw from if both decks are not empty 
+            // TODO 
             int deck_picked = UserInterface.which_deck(); 
 
             // Draws card from deck if deck is not empty
+            // TODO
             if (deck_picked == 1) {
-                startingPlayer.addCardToHand(deck.getCard());
+                Card drawnCard = deck.getCard();
+                startingPlayer.addCardToHand(drawnCard);
             } else {
-                startingPlayer.addCardToHand((TacticCard) tacticDeck.getCard());
+                Card drawnCard = tacticDeck.getCard(); 
+                startingPlayer.addCardToHand(drawnCard);
             }
+
+            // Check if the game is over
+            start = gameOver() == 0;
+            startingPlayer = startingPlayer == player1 ? player2 : player1;
+            otherPlayer = otherPlayer == player1 ? player2 : player1;
         }
     }
 }

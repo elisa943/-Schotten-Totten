@@ -8,6 +8,7 @@ public class Player {
     protected ArrayList<Card> hand;
     protected ArrayList<TacticCard> tacticHand;
     public static final int MAX_NUM_TAC_CARDS = 7;
+    public static final int NUM_TAC_CARDS = 0;
 
     // Constructors 
     public Player(String name, int id) {
@@ -90,7 +91,7 @@ public class Player {
             System.out.print("Choose a card to play (enter a white number): ");
             cardNumber = scanner.nextInt();
 
-            if (cardNumber >= 1 && cardNumber <= hand.size()) {
+            if (cardNumber >= 1 && cardNumber <= hand.size() + tacticHand.size()) {
                 break;
             }
             System.out.println("Invalid card number. Please choose a valid card.");
