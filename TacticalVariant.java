@@ -97,8 +97,17 @@ public class TacticalVariant extends Board {
             displayBoard(startingPlayer);
 
             // Ask player which deck to draw from if both decks are not empty 
-            // TODO 
-            int deck_picked = UserInterface.which_deck(); 
+            int deck_picked = 0;
+            if (deck.isEmpty() && !(tacticDeck.isEmpty())) {
+                // draw from tactic deck
+                deck_picked = 2;
+            } else if (!(deck.isEmpty()) && tacticDeck.isEmpty()) {
+                // draw from regular deck
+                deck_picked = 1;
+            } else if (!(deck.isEmpty()) && !(tacticDeck.isEmpty())) {
+                // ask player which deck to draw from
+                deck_picked = UserInterface.which_deck(); 
+            }
 
             // Draws card from deck if deck is not empty
             // TODO
@@ -106,8 +115,8 @@ public class TacticalVariant extends Board {
                 Card drawnCard = deck.getCard();
                 startingPlayer.addCardToHand(drawnCard);
             } else {
-                Card drawnCard = tacticDeck.getCard(); 
-                startingPlayer.addCardToHand(drawnCard);
+                TacticCard drawnCard = (TacticCard) tacticDeck.getCard(); 
+                startingPlayer.addCardToTacticHand(drawnCard);
             }
 
             // Check if the game is over
