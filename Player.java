@@ -15,6 +15,7 @@ public class Player {
         this.name = name;
         //this.hand = new ArrayList<>();    
         this.id = id; 
+        this.tacticHand = new ArrayList<>();
     }
 
     // Methods
