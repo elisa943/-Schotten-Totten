@@ -212,8 +212,6 @@ public class Board {
             }
         }
         
-        System.out.print("\n");
-
         // Player 2 controlled borders
         for (int i = 0; i < border.NUM_BORDER_CARDS; i++)
         {
