@@ -193,7 +193,7 @@ public class Board {
             }
             else
             {
-                System.out.print("  ");
+                System.out.print("     ");
             }
         }
 
@@ -208,12 +208,10 @@ public class Board {
             }
             else
             {
-                System.out.print("      "); 
+                System.out.print("     "); 
             }
         }
         
-        System.out.print("\n");
-
         // Player 2 controlled borders
         for (int i = 0; i < border.NUM_BORDER_CARDS; i++)
         {
@@ -223,7 +221,7 @@ public class Board {
             }
             else
             {
-                System.out.print("      ");
+                System.out.print("     ");
             }
         }
 
