@@ -57,10 +57,6 @@ public class TacticalVariant extends Board {
             return false;
         }
 
-        // if (cardIndex + 1 >= player.getHand().size() + player.getTacticHand().size()) {
-        //     return false;
-        // }
-
         return true;
     }
 

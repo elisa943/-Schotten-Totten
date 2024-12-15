@@ -98,12 +98,7 @@ public class Board {
             }
 
             // Checks if the new combination is complete
-            Card_Combination cardCombination; 
-            if (startingPlayer.getId() == 0) {
-                cardCombination = border.getCombinations(startingPlayer.getId(), values[1]);
-            } else {
-                cardCombination = border.getCombinations(startingPlayer.getId() - 1, values[1]);
-            }
+            Card_Combination cardCombination = border.getCombinations(startingPlayer.getId() == 0 ? 0 : startingPlayer.getId()-1, values[1]);
 
             if (cardCombination.getCardSize() == 3) {
                 Combination combination = cardCombination.getCombination();
@@ -114,30 +109,17 @@ public class Board {
                 if (cardCombination_other.getCardSize() == 3) {
                     if (cardCombination.isBetter(cardCombination_other)) {
                         // startingPlayer wins the border
-                        if (startingPlayer.getId() == 0) {
-                            border.setBorder(startingPlayer.getId() + 1, values[1]);
-                        } else {
-                            border.setBorder(startingPlayer.getId(), values[1]);
-                        }
-
+                        border.setBorder(startingPlayer.getId() == 0 ? 1 : startingPlayer.getId(), values[1]);
                     } else {
                         // otherPlayer wins the border
-                        if (otherPlayer.getId() == 0) {
-                            border.setBorder(otherPlayer.getId() + 1, values[1]);
-                        } else {
-                            border.setBorder(otherPlayer.getId(), values[1]);
-                        }
+                        border.setBorder(otherPlayer.getId() == 0 ? 1 : otherPlayer.getId(), values[1]);
                     }
                 }
                 // Else checks if other player might have a better combination
                 else if (Card_Combination.betterCombination(cardCombination, cardCombination_other)) {
                     // Do nothing
                 } else { // Else the player wins the border
-                    if (startingPlayer.getId() == 0) {
-                        border.setBorder(startingPlayer.getId() + 1, values[1]);
-                    } else {
-                        border.setBorder(startingPlayer.getId(), values[1]);
-                    }
+                    border.setBorder(startingPlayer.getId() == 0 ? 1 : startingPlayer.getId(), values[1]);
                 }
             }
 
