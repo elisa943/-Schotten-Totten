@@ -33,11 +33,6 @@ public class Border {
         combinations[i][j].addCard(card);
     }
 
-    // public void setCombinations(Card card) {
-    //     // Vérifier que la taille de la combinaison est < 3
-    //     this.combinations.addCard(card);
-    // }
-
     public int getBorderSize(int value) {
         int count = 0;
         for (int i = 0; i < NUM_BORDER_CARDS; i++) {

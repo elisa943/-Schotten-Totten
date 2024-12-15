@@ -92,7 +92,10 @@ public class Board {
             startingPlayer.removeCardFromHand(startingPlayer.getCardFromHand(values[0]));
 
             // Draws card from deck
-            startingPlayer.addCardToHand(deck.getCard());
+            Card card_drawn = deck.getCard();
+            if (card_drawn != null) {
+                startingPlayer.addCardToHand(card_drawn);
+            }
 
             // Checks if the new combination is complete
             Card_Combination cardCombination; 
@@ -168,20 +171,20 @@ public class Board {
 
             System.out.print("  "); 
 
-            for(int i = 0; i < border.NUM_BORDER_CARDS; i++) 
-            {
+            for(int i = 0; i < border.NUM_BORDER_CARDS; i++) {
                 Card cardJ = border.getCombinations(0,i).getCard(j); 
 
-                if (cardJ == null)
-                {
+                if (cardJ == null) {
+                    System.out.print("  ");
+                } else if (cardJ.getNumber() == -1) {
+                    TacticCard tacticCard = (TacticCard) cardJ;
+                    System.out.print(TacticCards.getTacticCardAbr(tacticCard.getTacticCard()));
+                } else {
+                    ColoredText.coloredCard(cardJ); 
                     System.out.print(" ");
                 }
-                else
-                {
-                    ColoredText.coloredCard(cardJ); 
-                }
 
-                System.out.print(spaceBetweenNumbers);
+                System.out.print("   ");
             }
             
             System.out.print("\n");
@@ -242,15 +245,18 @@ public class Board {
             {
 
                 Card cardJ = border.getCombinations(1,i).getCard(j);
-
+                
                 if (cardJ == null) {
+                    System.out.print("  ");
+                } else if (cardJ.getNumber() == -1) {
+                    TacticCard tacticCard = (TacticCard) cardJ;
+                    System.out.print(TacticCards.getTacticCardAbr(tacticCard.getTacticCard()));
+                } else {
+                    ColoredText.coloredCard(cardJ); 
                     System.out.print(" ");
                 }
-                else {
-                    ColoredText.coloredCard(cardJ); 
-                }
-                
-                System.out.print(spaceBetweenNumbers);
+
+                System.out.print("   ");
 
             }
             

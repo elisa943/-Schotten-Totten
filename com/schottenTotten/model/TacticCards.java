@@ -2,7 +2,7 @@ package com.schottenTotten.model;
 
 public enum TacticCards {
     JOKER, SPY, SHIELD_BEARER, BLIND_MAN_BLUFF, MUD_FIGHT, RECRUITER, STRATEGIST, BANSHEE, TRAITOR;
-    public static final int NUM_TACTIC_CARDS = 9;
+    public static final int NUM_TACTIC_CARDS = 3;
 
     public static TacticCards getByIndex(int index) {
         return TacticCards.values()[index];
