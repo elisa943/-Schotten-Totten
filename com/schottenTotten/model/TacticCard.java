@@ -9,6 +9,9 @@ public class TacticCard extends Card {
     public TacticCard(TacticCards tacticCard) {
         super();
         this.tacticCard = tacticCard;
+        // Une carte tactique est dynamique par défaut
+        this.setDynamicValue(true);
+        this.setDynamicColor(true); 
     }
 
     public TacticCards getTacticCard() {

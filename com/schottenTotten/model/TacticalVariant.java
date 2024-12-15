@@ -1,5 +1,6 @@
 package com.schottenTotten.model;
 import com.schottenTotten.view.*;
+import com.schottenTotten.controller.Card_Combination;
 
 public class TacticalVariant extends Board {
     protected TacticDeck tacticDeck;
@@ -63,6 +64,24 @@ public class TacticalVariant extends Board {
         return true;
     }
 
+    private void configureTacticCards(Card_Combination combination, Player player) {
+        for (int i = 0; i < combination.getCardSize(); i++) {
+            Card card = combination.getCard(i);
+            if (card instanceof TacticCard) {
+                TacticCard tacticCard = (TacticCard) card;
+
+                // Vérifie si la carte doit être configurée
+                if (tacticCard.isDynamicValue() || tacticCard.isDynamicColor()) {
+                    System.out.println(player.getName() + ", configure your " + TacticCards.getTacticCardName(tacticCard.getTacticCard()) + ":");
+
+                    player.selectValueAndColorForCard(tacticCard);
+
+                    System.out.println("Card configured: Value = " + tacticCard.getNumber() + ", Color = " + tacticCard.getColor());
+                }
+            }
+        }
+    }
+
     @Override
     public void startGame() {
         setTerminalSize(50, 30);
@@ -70,49 +89,40 @@ public class TacticalVariant extends Board {
         boolean start = true; 
         Player startingPlayer = player1;
         Player otherPlayer = player2;
-        while(start) {
-            // Displays the game board
+
+        while (start) {
+            // Affiche le plateau
             displayBoard(startingPlayer);
             displayHand(startingPlayer);
 
-            // startingPlayer plays
+            // Le joueur joue
             int values[] = startingPlayer.getCardIndexFromUser(border, startingPlayer); // (cardIndex, positionIndex)
 
-            // Check if the player wants to play a tactic card
+            // Vérifie si le joueur veut jouer une carte tactique
             Card card;
             if (tacticCardPlayed(startingPlayer, values[0])) {
-                // Si une carte tactique est jouée
                 TacticCard tacticCard = startingPlayer.getTacticCardFromHand(values[0] - startingPlayer.getHand().size());
-
-                // Permet au joueur de choisir la valeur et la couleur
-                startingPlayer.selectValueAndColorForCard(tacticCard);
-
-                // Ajoute la carte à la frontière
                 border.setCombinations(tacticCard, Math.max(0, startingPlayer.getId() - 1), values[1]);
-
-                // Retire la carte de la main
                 startingPlayer.removeCardFromTacticHand(tacticCard);
             } else {
-                // Si une carte normale est jouée
                 card = startingPlayer.getCardFromHand(values[0]);
                 border.setCombinations(card, Math.max(0, startingPlayer.getId() - 1), values[1]);
                 startingPlayer.removeCardFromHand(card);
             }
 
+            // Vérifie si la combinaison est complète
+            Card_Combination playerCombination = border.getCombinations(Math.max(0, startingPlayer.getId() - 1), values[1]);
+            if (playerCombination.getCardSize() == 3) {
+                configureTacticCards(playerCombination, startingPlayer);
+            }
 
-            // Updates the board 
-            displayBoard(startingPlayer);
-
-            // Ask player which deck to draw from if both decks are not empty 
+            // Demande au joueur de piocher une carte (normale ou tactique)
             int deck_picked = 0;
-            if (deck.isEmpty() && !(tacticDeck.isEmpty())) {
-                // draw from tactic deck
-                deck_picked = 2;
-            } else if (!(deck.isEmpty()) && tacticDeck.isEmpty()) {
-                // draw from regular deck
-                deck_picked = 1;
-            } else if (!(deck.isEmpty()) && !(tacticDeck.isEmpty())) {
-                // ask player which deck to draw from
+            if (deck.isEmpty() && !tacticDeck.isEmpty()) {
+                deck_picked = 2; // Pioche tactique
+            } else if (!deck.isEmpty() && tacticDeck.isEmpty()) {
+                deck_picked = 1; // Pioche normale
+            } else if (!deck.isEmpty() && !tacticDeck.isEmpty()) {
                 deck_picked = UserInterface.which_deck(); 
             }
 
@@ -121,20 +131,24 @@ public class TacticalVariant extends Board {
                 if (drawnCard != null) {
                     startingPlayer.addCardToHand(drawnCard);
                 }
-            } else {
+            } else if (deck_picked == 2) {
                 TacticCard drawnCard = (TacticCard) tacticDeck.getCard(); 
                 startingPlayer.addCardToTacticHand(drawnCard);
             }
 
-            // Check if the game is over
+            // Vérifie si la partie est terminée
             start = gameOver() == 0;
             startingPlayer = startingPlayer == player1 ? player2 : player1;
-            otherPlayer = otherPlayer == player1 ? player2 : player1;
         }
 
-        // Display the winner
+        // Affiche le plateau final
         displayBoard(startingPlayer);
-        System.out.println("Game over! " + startingPlayer.getName() + " wins!");
 
+        // Affiche le gagnant
+        if (gameOver() == player1.getId()) {
+            System.out.println(player1.getName() + " wins !");
+        } else {
+            System.out.println(player2.getName() + " wins !");
+        }
     }
 }
