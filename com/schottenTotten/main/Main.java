@@ -11,6 +11,8 @@ public class Main {
         int choice = -1; 
         int variant = -1;
         int ai = -1;
+        String name1 = "";
+        String name2 = "";
 
         while (choice == -1 && variant == -1 && ai == -1) {
             choice = UserInterface.pick_menu();
@@ -23,13 +25,23 @@ public class Main {
                 }
             }
         }
+
+        if (ai == 1) {
+            name1 = UserInterface.askPlayerName("Player 1");
+            name2 = "AI";
+        } else {
+            name1 = UserInterface.askPlayerName("Player 1");
+            name2 = UserInterface.askPlayerName("Player 2");
+        }
+
         if (variant == 1) {
-            // Start the game
+            // Variant not selected 
             System.out.println("Starting the game...");
-            Board board = new Board(ai == 1);
+            Board board = new Board(ai == 1, name1, name2);
             board.startGame();
         } else if (variant == 2) {
-            TacticalVariant board = new TacticalVariant(ai == 1);
+            // Variant selected
+            TacticalVariant board = new TacticalVariant(ai == 1, name1, name2);
             board.startGame();
         }
 

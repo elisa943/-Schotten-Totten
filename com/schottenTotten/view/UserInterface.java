@@ -67,6 +67,11 @@ public class UserInterface {
         System.out.print("Enter your choice (1 or 2): ");
     }
 
+    public static String askPlayerName(String player) {
+        System.out.print("Enter your name (" + player + "): ");
+        return scanner.next();
+    }
+
     public static int pick_menu() {
         displayMainMenu();
 

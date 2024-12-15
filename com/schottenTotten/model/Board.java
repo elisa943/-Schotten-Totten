@@ -11,13 +11,13 @@ public class Board {
     protected Deck deck;
     protected Border border;
 
-    public Board(boolean isAI) {
+    public Board(boolean isAI, String name1, String name2) {
         if (isAI) {
             player1 = new AIPlayer("AI", 0);
-            player2 = new Player("Player 1", 2);
+            player2 = new Player(name1, 2);
         } else {
-            player1 = new Player("Player 1", 1);
-            player2 = new Player("Player 2", 2);
+            player1 = new Player(name1, 1);
+            player2 = new Player(name2, 2);
         }
         deck = new Deck(player1, player2);
         border = new Border();

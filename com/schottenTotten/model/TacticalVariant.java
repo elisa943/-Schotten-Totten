@@ -4,8 +4,8 @@ import com.schottenTotten.view.*;
 public class TacticalVariant extends Board {
     protected TacticDeck tacticDeck;
 
-    public TacticalVariant(boolean isAI) {
-        super(isAI);
+    public TacticalVariant(boolean isAI, String name1, String name2) {
+        super(isAI, name1, name2);
         tacticDeck = new TacticDeck(player1, player2);
     }
 
