@@ -1,4 +1,5 @@
 package com.schottenTotten.main;
+
 import java.util.Scanner;
 import com.schottenTotten.view.UserInterface;
 import com.schottenTotten.model.Board;
@@ -14,18 +15,17 @@ public class Main {
         String name1 = "";
         String name2 = "";
 
+        // Display the main menu
         while (choice == -1 && variant == -1 && ai == -1) {
             choice = UserInterface.pick_menu();
 
             if (choice == 1) {
                 variant = UserInterface.pick_variant();
-
-                if (variant == 1) {
-                    ai = UserInterface.pick_ai();
-                }
+                ai = UserInterface.pick_ai(); // 1 for AI, 2 for 2 players
             }
         }
 
+        // Player names
         if (ai == 1) {
             name1 = UserInterface.askPlayerName("Player 1");
             name2 = "AI";
@@ -34,19 +34,19 @@ public class Main {
             name2 = UserInterface.askPlayerName("Player 2");
         }
 
+        // Lauching the game
         if (variant == 1) {
-            // Variant not selected 
-            System.out.println("Starting the game...");
+            // Classic mode
+            System.out.println("Starting the game in Classic Mode...");
             Board board = new Board(ai == 1, name1, name2);
             board.startGame();
         } else if (variant == 2) {
-            // Variant selected
+            // Tactical variant
+            System.out.println("Starting the game in Tactical Variant...");
             TacticalVariant board = new TacticalVariant(ai == 1, name1, name2);
             board.startGame();
         }
 
         UserInterface.close();
     }
-    
-
 }

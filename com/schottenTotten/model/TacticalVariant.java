@@ -1,6 +1,8 @@
 package com.schottenTotten.model;
 import com.schottenTotten.view.*;
 import com.schottenTotten.controller.Card_Combination;
+import com.schottenTotten.ai.AIPlayer;
+
 
 public class TacticalVariant extends Board {
     protected TacticDeck tacticDeck;
@@ -81,11 +83,12 @@ public class TacticalVariant extends Board {
             }
         }
     }
+
     @Override
     public void startGame() {
         setTerminalSize(50, 30);
         ColoredText.clear();
-        boolean start = true; 
+        boolean start = true;
         Player startingPlayer = player1;
         Player otherPlayer = player2;
 
@@ -93,65 +96,95 @@ public class TacticalVariant extends Board {
             displayBoard(startingPlayer);
             displayHand(startingPlayer);
 
-            int values[] = startingPlayer.getCardIndexFromUser(border, startingPlayer); 
+            // AI or Human plays
+            int[] values;
+            if (startingPlayer instanceof AIPlayer) {
+                // AI selects card and border
+                values = ((AIPlayer) startingPlayer).getCardIndexFromAI(border, startingPlayer);
+            } else {
+                // Human selects card and border
+                values = startingPlayer.getCardIndexFromUser(border, startingPlayer);
+            }
 
-            // Check if the player has a combination of 3 cards
             Card card;
-            if (tacticCardPlayed(startingPlayer, values[0])) {
+            if (values[0] >= startingPlayer.getHand().size()) {
+                // Tactic card played
                 TacticCard tacticCard = startingPlayer.getTacticCardFromHand(values[0] - startingPlayer.getHand().size());
 
+                // Ensure Joker rule is respected
                 if (tacticCard.getTacticCard() == TacticCards.JOKER && startingPlayer.hasJokerInPlay(border)) {
-                    System.out.println("You already have a Joker in play! You cannot place another one.");
-                    try {
-                        Thread.sleep(2000); // Pause
-                    } catch (InterruptedException e) {
-                        Thread.currentThread().interrupt(); 
+                    if (startingPlayer instanceof AIPlayer) {
+                        continue; // AI skips turn for invalid Joker
+                    } else {
+                        System.out.println("You already have a Joker in play! You cannot place another one.");
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            Thread.currentThread().interrupt();
+                        }
+                        continue;
                     }
-                    continue;
                 }
+
                 border.setCombinations(tacticCard, Math.max(0, startingPlayer.getId() - 1), values[1]);
                 startingPlayer.removeCardFromTacticHand(tacticCard);
             } else {
+                // Normal card played
                 card = startingPlayer.getCardFromHand(values[0]);
                 border.setCombinations(card, Math.max(0, startingPlayer.getId() - 1), values[1]);
                 startingPlayer.removeCardFromHand(card);
             }
 
-            // Check if the player has a combination of 3 cards
+            // Check if a combination is complete
             Card_Combination playerCombination = border.getCombinations(Math.max(0, startingPlayer.getId() - 1), values[1]);
             if (playerCombination.getCardSize() == 3) {
-                configureTacticCards(playerCombination, startingPlayer);
+                if (startingPlayer instanceof AIPlayer) {
+                    // AI configures cards
+                    for (int i = 0; i < playerCombination.getCardSize(); i++) {
+                        if (playerCombination.getCard(i) instanceof TacticCard) {
+                            TacticCard tacticCard = (TacticCard) playerCombination.getCard(i);
+                            ((AIPlayer) startingPlayer).configureTacticCard(tacticCard);
+                        }
+                    }
+                } else {
+                    // Human configures cards
+                    configureTacticCards(playerCombination, startingPlayer);
+                }
             }
 
-            // Ask the player to pick a card from the deck
-            int deck_picked = 0;
+            // Pick a card from the deck
+            int deckPicked = 0;
             if (deck.isEmpty() && !tacticDeck.isEmpty()) {
-                deck_picked = 2; // Pioche tactique
+                deckPicked = 2; // Only tactic deck available
             } else if (!deck.isEmpty() && tacticDeck.isEmpty()) {
-                deck_picked = 1; // Pioche normale
+                deckPicked = 1; // Only normal deck available
             } else if (!deck.isEmpty() && !tacticDeck.isEmpty()) {
-                deck_picked = UserInterface.which_deck(); 
+                if (startingPlayer instanceof AIPlayer) {
+                    deckPicked = ((AIPlayer) startingPlayer).pickDeck();
+                } else {
+                    deckPicked = UserInterface.which_deck();
+                }
             }
 
-            if (deck_picked == 1) {
+            if (deckPicked == 1) {
                 Card drawnCard = deck.getCard();
                 if (drawnCard != null) {
                     startingPlayer.addCardToHand(drawnCard);
                 }
-            } else if (deck_picked == 2) {
-                TacticCard drawnCard = (TacticCard) tacticDeck.getCard(); 
-                startingPlayer.addCardToTacticHand(drawnCard);
+            } else if (deckPicked == 2) {
+                TacticCard drawnCard = (TacticCard) tacticDeck.getCard();
+                if (drawnCard != null) {
+                    startingPlayer.addCardToTacticHand(drawnCard);
+                }
             }
 
-            // Checks if the game is over
+            // Check if the game is over
             start = gameOver() == 0;
             startingPlayer = startingPlayer == player1 ? player2 : player1;
         }
 
-        // Display the final board
         displayBoard(startingPlayer);
 
-        // Display the winner
         if (gameOver() == player1.getId()) {
             System.out.println(player1.getName() + " wins !");
         } else {
