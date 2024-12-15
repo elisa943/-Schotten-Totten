@@ -109,7 +109,7 @@ public class Card_Combination {
         Combination combination = completeCombination.getCombination();
         int num_cards = cardCombination.getCardSize();
 
-        if (cardCombination.getCardSize() == 0) {
+        if (num_cards <= 1) {
             return true;
         }
 

@@ -146,6 +146,30 @@ public class TacticalVariant extends Board {
                     // Human configures cards
                     configureTacticCards(playerCombination, startingPlayer);
                 }
+
+                // Checks combinations against other player
+                Card_Combination cardCombination_other; 
+                cardCombination_other = border.getCombinations(Math.max(0, otherPlayer.getId() - 1), values[1]);
+
+                System.out.println("Otehr Player has " + cardCombination_other.getCardSize());
+
+                // Checks if other player has a full combination
+                if (cardCombination_other.getCardSize() == 3) {
+                    if (playerCombination.isBetter(cardCombination_other)) {
+                        // startingPlayer wins the border
+                        border.setBorder(startingPlayer.getId() == 0 ? 1 : startingPlayer.getId(), values[1]);
+                    } else {
+                        // otherPlayer wins the border
+                        border.setBorder(otherPlayer.getId() == 0 ? 1 : otherPlayer.getId(), values[1]);
+                    }
+                }
+                // Else checks if other player might have a better combination
+                else if (Card_Combination.betterCombination(playerCombination, cardCombination_other)) {
+                    // Do nothing
+                } else { // Else the player wins the border
+                    border.setBorder(startingPlayer.getId() == 0 ? 1 : startingPlayer.getId(), values[1]);
+                }
+
             }
 
             // Pick a card from the deck
