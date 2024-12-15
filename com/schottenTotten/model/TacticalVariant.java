@@ -70,7 +70,7 @@ public class TacticalVariant extends Board {
             if (card instanceof TacticCard) {
                 TacticCard tacticCard = (TacticCard) card;
 
-                // Vérifie si la carte doit être configurée
+                // Check if the card is dynamic
                 if (tacticCard.isDynamicValue() || tacticCard.isDynamicColor()) {
                     System.out.println(player.getName() + ", configure your " + TacticCards.getTacticCardName(tacticCard.getTacticCard()) + ":");
 
@@ -81,7 +81,6 @@ public class TacticalVariant extends Board {
             }
         }
     }
-
     @Override
     public void startGame() {
         setTerminalSize(50, 30);
@@ -91,17 +90,25 @@ public class TacticalVariant extends Board {
         Player otherPlayer = player2;
 
         while (start) {
-            // Affiche le plateau
             displayBoard(startingPlayer);
             displayHand(startingPlayer);
 
-            // Le joueur joue
-            int values[] = startingPlayer.getCardIndexFromUser(border, startingPlayer); // (cardIndex, positionIndex)
+            int values[] = startingPlayer.getCardIndexFromUser(border, startingPlayer); 
 
-            // Vérifie si le joueur veut jouer une carte tactique
+            // Check if the player has a combination of 3 cards
             Card card;
             if (tacticCardPlayed(startingPlayer, values[0])) {
                 TacticCard tacticCard = startingPlayer.getTacticCardFromHand(values[0] - startingPlayer.getHand().size());
+
+                if (tacticCard.getTacticCard() == TacticCards.JOKER && startingPlayer.hasJokerInPlay(border)) {
+                    System.out.println("You already have a Joker in play! You cannot place another one.");
+                    try {
+                        Thread.sleep(2000); // Pause
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt(); 
+                    }
+                    continue;
+                }
                 border.setCombinations(tacticCard, Math.max(0, startingPlayer.getId() - 1), values[1]);
                 startingPlayer.removeCardFromTacticHand(tacticCard);
             } else {
@@ -110,13 +117,13 @@ public class TacticalVariant extends Board {
                 startingPlayer.removeCardFromHand(card);
             }
 
-            // Vérifie si la combinaison est complète
+            // Check if the player has a combination of 3 cards
             Card_Combination playerCombination = border.getCombinations(Math.max(0, startingPlayer.getId() - 1), values[1]);
             if (playerCombination.getCardSize() == 3) {
                 configureTacticCards(playerCombination, startingPlayer);
             }
 
-            // Demande au joueur de piocher une carte (normale ou tactique)
+            // Ask the player to pick a card from the deck
             int deck_picked = 0;
             if (deck.isEmpty() && !tacticDeck.isEmpty()) {
                 deck_picked = 2; // Pioche tactique
@@ -136,19 +143,20 @@ public class TacticalVariant extends Board {
                 startingPlayer.addCardToTacticHand(drawnCard);
             }
 
-            // Vérifie si la partie est terminée
+            // Checks if the game is over
             start = gameOver() == 0;
             startingPlayer = startingPlayer == player1 ? player2 : player1;
         }
 
-        // Affiche le plateau final
+        // Display the final board
         displayBoard(startingPlayer);
 
-        // Affiche le gagnant
+        // Display the winner
         if (gameOver() == player1.getId()) {
             System.out.println(player1.getName() + " wins !");
         } else {
             System.out.println(player2.getName() + " wins !");
         }
     }
+
 }

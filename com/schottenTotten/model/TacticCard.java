@@ -4,12 +4,12 @@ import com.schottenTotten.model.TacticCards;
 import com.schottenTotten.controller.Color;
 
 public class TacticCard extends Card {
-    private TacticCards tacticCard; // Type de carte tactique (JO, SB, etc.)
+    private TacticCards tacticCard; // Type of tactic card
 
     public TacticCard(TacticCards tacticCard) {
         super();
         this.tacticCard = tacticCard;
-        // Une carte tactique est dynamique par défaut
+        // A tactical card is dynamic by default
         this.setDynamicValue(true);
         this.setDynamicColor(true); 
     }
@@ -22,7 +22,7 @@ public class TacticCard extends Card {
         this.setNumber(value);
         this.setColor(color);
 
-        // Une fois fixé, la valeur et la couleur ne peuvent plus changer
+        // Once the effect is applied, the card is no longer dynamic
         this.setDynamicValue(false); 
         this.setDynamicColor(false); 
     }
