@@ -81,21 +81,24 @@ public class TacticalVariant extends Board {
             // Check if the player wants to play a tactic card
             Card card;
             if (tacticCardPlayed(startingPlayer, values[0])) {
-                // If so, play the tactic card 
-                card = (Card) startingPlayer.getTacticCardFromHand(values[0] - startingPlayer.getHand().size());
-                // Adds card to the border
-                border.setCombinations(card, (Math.max(0, startingPlayer.getId() - 1)), values[1]);
-                // TODO : playTacticCard(startingPlayer, values[1], card);
-                // Removes card from hand
-                startingPlayer.removeCardFromTacticHand((TacticCard) card);
+                // Si une carte tactique est jouée
+                TacticCard tacticCard = startingPlayer.getTacticCardFromHand(values[0] - startingPlayer.getHand().size());
+
+                // Permet au joueur de choisir la valeur et la couleur
+                startingPlayer.selectValueAndColorForCard(tacticCard);
+
+                // Ajoute la carte à la frontière
+                border.setCombinations(tacticCard, Math.max(0, startingPlayer.getId() - 1), values[1]);
+
+                // Retire la carte de la main
+                startingPlayer.removeCardFromTacticHand(tacticCard);
             } else {
-                // If not, play the regular card
+                // Si une carte normale est jouée
                 card = startingPlayer.getCardFromHand(values[0]);
-                // Adds card to the border
-                border.setCombinations(card, (Math.max(0, startingPlayer.getId() - 1)), values[1]);
-                // Removes card from hand
+                border.setCombinations(card, Math.max(0, startingPlayer.getId() - 1), values[1]);
                 startingPlayer.removeCardFromHand(card);
             }
+
 
             // Updates the board 
             displayBoard(startingPlayer);

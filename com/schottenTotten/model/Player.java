@@ -2,9 +2,8 @@ package com.schottenTotten.model;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import com.schottenTotten.model.Card;
-import com.schottenTotten.model.Border;
 import com.schottenTotten.controller.Color;
+import com.schottenTotten.controller.Card_Combination; // Ajout de l'import
 
 public class Player {
     // Attributs
@@ -15,27 +14,24 @@ public class Player {
     public static final int MAX_NUM_TAC_CARDS = 7;
     public static final int NUM_TAC_CARDS = 0;
 
-    // Constructors 
+    // Constructeurs
     public Player(String name, int id) {
         this.name = name;
-        //this.hand = new ArrayList<>();    
         this.id = id; 
         this.tacticHand = new ArrayList<>();
     }
 
-    // Methods
+    // Méthodes
     public void addCardToHand(Card card) {
-        if (card == null) {
-            return;
+        if (card != null) {
+            hand.add(card);
         }
-        hand.add(card);
     }
     
     public void addCardToTacticHand(TacticCard card) {
-        if (card == null) {
-            return;
+        if (card != null) {
+            tacticHand.add(card);
         }
-        tacticHand.add(card);
     }
 
     public void removeCardFromHand(Card card) {
@@ -46,7 +42,7 @@ public class Player {
         tacticHand.remove(card);
     }
     
-    // Setters et getters
+    // Getters et setters
     public void setId(int id) {
         this.id = id;
     }
@@ -93,7 +89,7 @@ public class Player {
         int cardNumber = -1; 
         int borderNumber = -1;
 
-        while ((cardNumber <= 0 || cardNumber > hand.size())) {
+        while (cardNumber <= 0 || cardNumber > hand.size()) {
             System.out.print("Choose a card to play (enter a white number): ");
             cardNumber = scanner.nextInt();
 
@@ -104,13 +100,12 @@ public class Player {
             cardNumber = -1;
         }
         
-        while ((borderNumber <= 0 || borderNumber > Border.NUM_BORDER_CARDS)) {
-
+        while (borderNumber <= 0 || borderNumber > Border.NUM_BORDER_CARDS) {
             System.out.print("Choose a border to put the card: ");
             borderNumber = scanner.nextInt();
 
             if (borderNumber >= 1 && borderNumber <= Border.NUM_BORDER_CARDS) {
-                if (!(border.isBorderIndexFull(borderNumber-1, player))) {
+                if (!border.isBorderIndexFull(borderNumber - 1, player)) {
                     break;
                 }
             }
@@ -118,8 +113,71 @@ public class Player {
             borderNumber = -1;
         }
 
-        //scanner.close();
-        int[] numbers = {cardNumber-1, borderNumber-1};
-        return numbers;
+        return new int[] { cardNumber - 1, borderNumber - 1 };
     }
+
+    public void setDynamicCardValueAndColor(Card card, int value, Color color) {
+        if (card instanceof TacticCard && (card.isDynamicValue() || card.isDynamicColor())) {
+            ((TacticCard) card).applyTacticEffect(value, color);
+        }
+    }
+
+    public boolean hasJokerInPlay(Border border) {
+        for (int i = 0; i < Border.NUM_BORDER_CARDS; i++) {
+            Card_Combination combination = border.getCombinations(this.getId() - 1, i);
+            for (int j = 0; j < combination.getCardSize(); j++) {
+                Card card = combination.getCard(j);
+                if (card instanceof TacticCard && ((TacticCard) card).getTacticCard() == TacticCards.JOKER) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void selectValueAndColorForCard(TacticCard card) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Demande la valeur
+        int value = -1;
+        if (card.getTacticCard() == TacticCards.SHIELD_BEARER || card.getTacticCard() == TacticCards.JOKER) {
+            System.out.println("Select a value for your " + TacticCards.getTacticCardName(card.getTacticCard()) + ":");
+            if (card.getTacticCard() == TacticCards.SHIELD_BEARER) {
+                System.out.println("[1, 2, or 3]");
+            } else if (card.getTacticCard() == TacticCards.JOKER) {
+                System.out.println("[1 to 9]");
+            }
+
+            while (value <= 0 || value > 9 || (card.getTacticCard() == TacticCards.SHIELD_BEARER && value > 3)) {
+                value = scanner.nextInt();
+                if (value <= 0 || value > 9 || (card.getTacticCard() == TacticCards.SHIELD_BEARER && value > 3)) {
+                    System.out.println("Invalid value, please try again:");
+                }
+            }
+        } else if (card.getTacticCard() == TacticCards.SPY) {
+            value = 7; // La valeur de l'espion est toujours 7
+        }
+
+        // Demande la couleur
+        System.out.println("Select a color for your " + TacticCards.getTacticCardName(card.getTacticCard()) + ":");
+        for (int i = 0; i < Color.values().length; i++) {
+            System.out.println(i + ": " + Color.values()[i]);
+        }
+
+        int colorIndex = -1;
+        while (colorIndex < 0 || colorIndex >= Color.values().length) {
+            colorIndex = scanner.nextInt();
+            if (colorIndex < 0 || colorIndex >= Color.values().length) {
+                System.out.println("Invalid color, please try again:");
+            }
+        }
+        Color selectedColor = Color.values()[colorIndex];
+
+        // Applique la valeur et la couleur choisies
+        card.applyTacticEffect(value, selectedColor);
+
+        System.out.println("Card set to value " + value + " and color " + selectedColor + ".");
+    }
+
+
 }

@@ -115,7 +115,7 @@ public class UserInterface {
     }
 
     public static int which_deck() {
-        System.out.println("Which deck do you want to use?");
+        System.out.println("From which deck do you want to pick your card ?");
         System.out.println("[1] Classic Deck");
         System.out.println("[2] Tactical Deck");
         System.out.print("Enter your choice (1 or 2): ");

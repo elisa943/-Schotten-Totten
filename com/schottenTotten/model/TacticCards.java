@@ -1,7 +1,7 @@
 package com.schottenTotten.model;
 
 public enum TacticCards {
-    JOKER, SPY, SHIELD_BEARER, BLIND_MAN_BLUFF, MUD_FIGHT, RECRUITER, STRATEGIST, BANSHEE, TRAITOR;
+    JOKER, SPY, SHIELD_BEARER;
     public static final int NUM_TACTIC_CARDS = 3;
 
     public static TacticCards getByIndex(int index) {
@@ -20,18 +20,6 @@ public enum TacticCards {
                 return "Spy";
             case SHIELD_BEARER:
                 return "Shield Bearer";
-            case BLIND_MAN_BLUFF:
-                return "Blind-Man Bluff";
-            case MUD_FIGHT:
-                return "Mud Fight";
-            case RECRUITER:
-                return "Recruiter";
-            case STRATEGIST:
-                return "Strategist";
-            case BANSHEE:
-                return "Banshee";
-            case TRAITOR:
-                return "Traitor";
             default:
                 return "";
         }
@@ -45,18 +33,6 @@ public enum TacticCards {
                 return "SP";
             case SHIELD_BEARER:
                 return "SB";
-            case BLIND_MAN_BLUFF:
-                return "BB";
-            case MUD_FIGHT:
-                return "MF";
-            case RECRUITER:
-                return "RE";
-            case STRATEGIST:
-                return "ST";
-            case BANSHEE:
-                return "BA";
-            case TRAITOR:
-                return "TR";  
             default:
                 return "";  
         }

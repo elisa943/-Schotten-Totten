@@ -5,6 +5,10 @@ public class Card {
     protected int number; 
     protected Color color; 
     public static final int MAX_NUMBER = 9;
+
+    // Indique si la valeur et la couleur peut changer (carte tactique)
+    private boolean dynamicValue = false;
+    private boolean dynamicColor = false; 
     
     public Card() {
         this.number = -1;
@@ -14,6 +18,22 @@ public class Card {
     public Card(int number, Color color) {
         this.number = number;
         this.color = color;
+    }
+
+    public boolean isDynamicValue() {
+        return dynamicValue;
+    }
+
+    public void setDynamicValue(boolean dynamicValue) {
+        this.dynamicValue = dynamicValue;
+    }
+
+    public boolean isDynamicColor() {
+        return dynamicColor;
+    }
+
+    public void setDynamicColor(boolean dynamicColor) {
+        this.dynamicColor = dynamicColor;
     }
 
     public int getNumber() {
