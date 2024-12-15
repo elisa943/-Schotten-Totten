@@ -1,4 +1,8 @@
-class AIPlayer extends Player {
+package com.schottenTotten.ai;
+import com.schottenTotten.model.Player;
+import com.schottenTotten.model.Border;
+
+public class AIPlayer extends Player {
     public AIPlayer(String name, int id) {
         super(name, id);
     }

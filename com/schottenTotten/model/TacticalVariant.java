@@ -1,3 +1,6 @@
+package com.schottenTotten.model;
+import com.schottenTotten.view.*;
+
 public class TacticalVariant extends Board {
     protected TacticDeck tacticDeck;
 

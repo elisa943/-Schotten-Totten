@@ -1,5 +1,8 @@
-public class ColoredText {
+package com.schottenTotten.view;
+import com.schottenTotten.model.Card;
+import com.schottenTotten.controller.Color;
 
+public class ColoredText {
     public static final String RESET = "\u001B[0m";
 
     private String text;
@@ -55,14 +58,4 @@ public class ColoredText {
             
         } 
     }
-
-    // Main function 
-    public static void main(String[] args) {
-        ColoredText coloredText = new ColoredText("Hello, World!", "\u001B[32m");
-        coloredText.println();
-        printlnColored("Hello, World!", "\u001B[33m");
-
-        printColored("Hello, ", "\u001B[31m");
-    }
-
 }

@@ -1,4 +1,8 @@
+package com.schottenTotten.main;
 import java.util.Scanner;
+import com.schottenTotten.view.UserInterface;
+import com.schottenTotten.model.Board;
+import com.schottenTotten.model.TacticalVariant;
 
 public class Main {
     public static Scanner scanner;

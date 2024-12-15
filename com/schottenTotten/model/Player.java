@@ -1,5 +1,10 @@
+package com.schottenTotten.model;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+import com.schottenTotten.model.Card;
+import com.schottenTotten.model.Border;
+import com.schottenTotten.controller.Color;
 
 public class Player {
     // Attributs

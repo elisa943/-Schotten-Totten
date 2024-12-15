@@ -1,6 +1,10 @@
-import java.util.Scanner;
+package com.schottenTotten.view;
 
-class UserInterface {
+import java.util.Scanner;
+import com.schottenTotten.controller.Color;
+
+
+public class UserInterface {
 
     public static Scanner scanner = new Scanner(System.in);
 

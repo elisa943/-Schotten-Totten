@@ -1,4 +1,6 @@
+package com.schottenTotten.controller;
 import java.util.ArrayList;
+import com.schottenTotten.model.Card;
 
 public class Card_Combination {
     private ArrayList<Card> cards;

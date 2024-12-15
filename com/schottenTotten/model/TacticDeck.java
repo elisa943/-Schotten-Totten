@@ -1,3 +1,4 @@
+package com.schottenTotten.model;
 import java.util.ArrayList;
 
 public class TacticDeck extends Deck {

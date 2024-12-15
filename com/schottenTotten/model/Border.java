@@ -1,4 +1,8 @@
+package com.schottenTotten.model;
 import java.util.ArrayList;
+import com.schottenTotten.controller.Card_Combination;
+
+
 
 public class Border {
     public static final int NUM_BORDER_CARDS = 9;

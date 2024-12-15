@@ -1,3 +1,6 @@
+package com.schottenTotten.model;
+import com.schottenTotten.controller.Color;
+
 public class Card {
     protected int number; 
     protected Color color; 

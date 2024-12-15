@@ -1,5 +1,9 @@
+package com.schottenTotten.model;
 import java.util.ArrayList;
 import java.io.IOException;
+import com.schottenTotten.ai.*;
+import com.schottenTotten.controller.*;
+import com.schottenTotten.view.*;
 
 public class Board {
     protected Player player1;
@@ -139,16 +143,17 @@ public class Board {
             startingPlayer = startingPlayer == player1 ? player2 : player1;
             otherPlayer = otherPlayer == player1 ? player2 : player1;
         }
+
+        // Displays the game board
+        displayBoard(startingPlayer);
+
+        // Displays the winner
+        if (gameOver() == player1.getId()) {
+            System.out.println(player1.getName() + " wins !");
+        } else {
+            System.out.println(player2.getName() + " wins !");
+        }
     }
-
-    // public void printBoardState() {
-    //     /* Imprime l'état actuel du plateau */
-    //     System.out.println("Frontières contrôlées par " + player1.getName() + " : ");
-    //     System.out.println(border.bordersControlledBy(player1).toString());
-
-    //     System.out.println("Frontières contrôlées par " + player2.getName() + " : ");
-    //     System.out.println(border.bordersControlledBy(player2).toString());
-    // }
 
     public void displayBoard(Player player) {
         ColoredText.clear();
@@ -211,6 +216,8 @@ public class Board {
                 System.out.print("     "); 
             }
         }
+
+        System.out.print("\n");
         
         // Player 2 controlled borders
         for (int i = 0; i < border.NUM_BORDER_CARDS; i++)
@@ -277,7 +284,7 @@ public class Board {
     public int gameOver() {
         /* If the game is won, returns player id */
         if (border.gameWon(player1)) {
-            return player1.getId();
+            return player1.getId() == 0 ? 1 : player1.getId();
         } else if (border.gameWon(player2)) {
             return player2.getId();
         } else return 0;

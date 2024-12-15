@@ -1,5 +1,7 @@
+package com.schottenTotten.model;
 import java.util.ArrayList;
 import java.util.Collections;
+import com.schottenTotten.controller.Color;
 
 public class Deck {
     // pioche (pile)

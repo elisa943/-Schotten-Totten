@@ -1,3 +1,7 @@
+package com.schottenTotten.model;
+import com.schottenTotten.model.TacticCards;
+import com.schottenTotten.model.TacticCard;
+
 public class TacticCard extends Card {
     private TacticCards tacticCard;
 
