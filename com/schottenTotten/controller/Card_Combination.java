@@ -113,7 +113,7 @@ public class Card_Combination {
             return true;
         }
 
-        for (int i = Combination.NUM_COMBINATIONS - 1; i >= Combination.getIndex(combination); i--) {
+        for (int i = Combination.NUM_COMBINATIONS - 1; i >= Combination.getIndex(combination) - 1; i--) {
             switch (Combination.getByIndex(i)) {
                 case STRAIGHT_FLUSH: 
                     if (cardCombination.maybeStraightFlush(completeCombination.getCard(NUM_CARDS - 1).getNumber())) {

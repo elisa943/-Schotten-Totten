@@ -141,12 +141,13 @@ public class Player {
         // Ask for the value
         int value = -1;
         if (card.getTacticCard() == TacticCards.SHIELD_BEARER || card.getTacticCard() == TacticCards.JOKER) {
-            System.out.println("Select a value for your " + TacticCards.getTacticCardName(card.getTacticCard()) + ":");
+            System.out.print("Select a value for your " + TacticCards.getTacticCardName(card.getTacticCard()));
             if (card.getTacticCard() == TacticCards.SHIELD_BEARER) {
-                System.out.println("[1, 2, or 3]");
+                System.out.print(" [1, 2, or 3]");
             } else if (card.getTacticCard() == TacticCards.JOKER) {
-                System.out.println("[1 to 9]");
+                System.out.print(" [1 to 9]");
             }
+            System.out.print(" : ");
 
             while (value <= 0 || value > 9 || (card.getTacticCard() == TacticCards.SHIELD_BEARER && value > 3)) {
                 value = scanner.nextInt();
@@ -159,10 +160,10 @@ public class Player {
         }
 
         // Ask for the color
-        System.out.println("Select a color for your " + TacticCards.getTacticCardName(card.getTacticCard()) + ":");
         for (int i = 0; i < Color.values().length; i++) {
             System.out.println(i + ": " + Color.values()[i]);
         }
+        System.out.print("Select a color for your " + TacticCards.getTacticCardName(card.getTacticCard()) + ":");
 
         int colorIndex = -1;
         while (colorIndex < 0 || colorIndex >= Color.values().length) {

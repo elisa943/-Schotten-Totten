@@ -142,19 +142,25 @@ public class Board {
 
     public void displayBoard(Player player) {
         ColoredText.clear();
-        String spaceBetweenNumbers = "    "; 
+        Player oppositePlayer;
+        if (player.getId() == player1.getId()) {
+            oppositePlayer = player2;
+        } else {
+            oppositePlayer = player1;
+        }
 
+        String spaceBetweenNumbers = "    "; 
         UserInterface.displayBanner();
         System.out.println("\t\t===============");
 
-        System.out.printf("\t\t   %s\n\n", player1.getName());
+        System.out.printf("\t\t   %s\n\n", oppositePlayer.getName());
 
         for(int j = 2; j > -1; j--) {
 
             System.out.print("  "); 
 
             for(int i = 0; i < border.NUM_BORDER_CARDS; i++) {
-                Card cardJ = border.getCombinations(0,i).getCard(j); 
+                Card cardJ = border.getCombinations(Math.max(0, oppositePlayer.getId() - 1),i).getCard(j); 
 
                 if (cardJ == null) {
                     System.out.print("  ");
@@ -170,14 +176,13 @@ public class Board {
             }
             
             System.out.print("\n");
-
         }
 
         // Printing the border in the middle 
         // Player 1 controlled borders
         for (int i = 0; i < border.NUM_BORDER_CARDS; i++)
         {
-            if (border.getBorder(i) == 1)
+            if (border.getBorder(i) == (oppositePlayer.getId() == 0 ? 1 : oppositePlayer.getId()))
             {
                 ColoredText.printColored("|_" + Integer.toString(i+1) + "_|", ColoredText.getColoredString(Color.RED));
             }
@@ -207,7 +212,7 @@ public class Board {
         // Player 2 controlled borders
         for (int i = 0; i < border.NUM_BORDER_CARDS; i++)
         {
-            if (border.getBorder(i) == 2)
+            if (border.getBorder(i) == (player.getId() == 0 ? 1 : player.getId()))
             {
                 ColoredText.printColored("|_" + Integer.toString(i+1) + "_|", ColoredText.getColoredString(Color.GREEN));
             }
@@ -226,7 +231,7 @@ public class Board {
             for(int i = 0; i < border.NUM_BORDER_CARDS; i++) 
             {
 
-                Card cardJ = border.getCombinations(1,i).getCard(j);
+                Card cardJ = border.getCombinations(Math.max(0, player.getId() - 1),i).getCard(j);
                 
                 if (cardJ == null) {
                     System.out.print("  ");
@@ -246,7 +251,7 @@ public class Board {
 
         }
 
-        System.out.printf("\n\t\t   %s\n", player2.getName());
+        System.out.printf("\n\t\t   %s\n", player.getName());
         System.out.println("\t\t===============");
 
         // Banner to display which player is playing

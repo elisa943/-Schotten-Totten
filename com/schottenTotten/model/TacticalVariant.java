@@ -151,8 +151,6 @@ public class TacticalVariant extends Board {
                 Card_Combination cardCombination_other; 
                 cardCombination_other = border.getCombinations(Math.max(0, otherPlayer.getId() - 1), values[1]);
 
-                System.out.println("Otehr Player has " + cardCombination_other.getCardSize());
-
                 // Checks if other player has a full combination
                 if (cardCombination_other.getCardSize() == 3) {
                     if (playerCombination.isBetter(cardCombination_other)) {
