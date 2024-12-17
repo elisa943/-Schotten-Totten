@@ -13,7 +13,7 @@ public class Player {
     protected String name; 
     protected ArrayList<Card> hand;
     protected ArrayList<TacticCard> tacticHand;
-    public static final int MAX_NUM_TAC_CARDS = 7;
+    public static int MAX_NUM_TAC_CARDS = 7;
     public static final int NUM_TAC_CARDS = 0;
 
     public Player(String name, int id) {
@@ -22,7 +22,6 @@ public class Player {
         this.tacticHand = new ArrayList<>();
     }
 
-    // Methodes
     public void addCardToHand(Card card) {
         if (card != null) {
             hand.add(card);
@@ -43,7 +42,10 @@ public class Player {
         tacticHand.remove(card);
     }
     
-    // Getters et setters
+    public static void setMAX_NUM_TAC_CARDS(int num) {
+        MAX_NUM_TAC_CARDS = num;
+    }
+    
     public void setId(int id) {
         this.id = id;
     }

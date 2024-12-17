@@ -4,6 +4,7 @@ import java.util.Scanner;
 import com.schottenTotten.view.UserInterface;
 import com.schottenTotten.model.Board;
 import com.schottenTotten.model.TacticalVariant;
+import com.schottenTotten.model.Player;
 
 public class Main {
     public static Scanner scanner;
@@ -49,6 +50,7 @@ public class Main {
             // Tactical variant
             System.out.println("Starting the game in Tactical Variant...");
             TacticalVariant board = new TacticalVariant(ai == 1, name1, name2);
+            Player.setMAX_NUM_TAC_CARDS(7);
             board.startGame();
         }
 
