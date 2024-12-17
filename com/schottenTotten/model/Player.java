@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import com.schottenTotten.controller.Color;
 import com.schottenTotten.controller.Card_Combination; 
+import com.schottenTotten.view.ColoredText;
+import java.util.InputMismatchException;
 
 public class Player {
     // Attributes
@@ -82,36 +84,49 @@ public class Player {
         return tacticHand.get(index);
     }
 
-    public int[] getCardIndexFromUser(Border border, Player player) {
+    public int[] getCardIndexFromUser(Border border) {
         /* Returns the card index (starts at 0) picked by the player */
         Scanner scanner = new Scanner(System.in);
         int cardNumber = -1; 
         int borderNumber = -1;
 
         while (cardNumber <= 0 || cardNumber > hand.size()) {
-            System.out.print("Choose a card to play (enter a white number): ");
-            cardNumber = scanner.nextInt();
+            try {
+                int total_size = hand.size() + tacticHand.size();
+                System.out.print("Choose a card to play [1-" + total_size + "]: ");
 
-            if (cardNumber >= 1 && cardNumber <= hand.size() + tacticHand.size()) {
-                break;
+                if (scanner.hasNextInt()) {
+                    cardNumber = scanner.nextInt();
+                } else {
+                    scanner.next(); // Clear the invalid input
+                    throw new InputMismatchException();
+                }
+                if (cardNumber >= 1 && cardNumber <= hand.size() + tacticHand.size()) {
+                    break;
+                }
+            } catch (InputMismatchException e) {
+                cardNumber = -1;
+                scanner.next();
             }
-            System.out.println("Invalid card number. Please choose a valid card.");
-            cardNumber = -1;
         }
         
         while (borderNumber <= 0 || borderNumber > Border.NUM_BORDER_CARDS) {
-            System.out.print("Choose a border to put the card: ");
-            borderNumber = scanner.nextInt();
+            try {
+                System.out.print("Choose a border to put the card: ");
+                borderNumber = scanner.nextInt();
 
-            if (borderNumber >= 1 && borderNumber <= Border.NUM_BORDER_CARDS) {
-                if (!border.isBorderIndexFull(borderNumber - 1, player)) {
-                    break;
+                if (borderNumber >= 1 && borderNumber <= Border.NUM_BORDER_CARDS) {
+                    if (!border.isBorderIndexFull(borderNumber - 1, this)) {
+                        break;
+                    }
                 }
+            } catch (InputMismatchException e) {
+                borderNumber = -1;
+                scanner.next();
             }
-            System.out.println("Invalid border number. Please choose a valid border.");
-            borderNumber = -1;
         }
 
+        //scanner.close();
         return new int[] { cardNumber - 1, borderNumber - 1 };
     }
 

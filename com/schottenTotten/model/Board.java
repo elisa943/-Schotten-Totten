@@ -83,7 +83,7 @@ public class Board {
                 // Adds card to the border
                 border.setCombinations(startingPlayer.getCardFromHand(values[0]), startingPlayer.getId(), values[1]);
             } else {
-                values = startingPlayer.getCardIndexFromUser(border, startingPlayer); // (cardIndex, positionIndex)
+                values = startingPlayer.getCardIndexFromUser(border); // (cardIndex, positionIndex)
                 // Adds card to the border
                 border.setCombinations(startingPlayer.getCardFromHand(values[0]), startingPlayer.getId() - 1, values[1]);
             }

@@ -22,6 +22,11 @@ public class Main {
             if (choice == 1) {
                 variant = UserInterface.pick_variant();
                 ai = UserInterface.pick_ai(); // 1 for AI, 2 for 2 players
+            } else if (choice == 2) {
+                UserInterface.close();
+                return;
+            } else {
+                choice = -1;
             }
         }
 

@@ -99,7 +99,7 @@ public class TacticalVariant extends Board {
                 values = ((AIPlayer) startingPlayer).getCardIndexFromAI(border, startingPlayer);
             } else {
                 // Human selects card and border
-                values = startingPlayer.getCardIndexFromUser(border, startingPlayer);
+                values = startingPlayer.getCardIndexFromUser(border);
             }
 
             Card card;

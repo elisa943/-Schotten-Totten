@@ -1,5 +1,5 @@
 package com.schottenTotten.view;
-
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.schottenTotten.controller.Color;
 
@@ -78,8 +78,14 @@ public class UserInterface {
         int choice = -1;
 
         while (choice != 1 && choice != 2) {
-            choice = scanner.nextInt();
-            if (choice != 1 && choice != 2) {
+            try {
+                choice = scanner.nextInt();
+                if (choice != 1 && choice != 2) {
+                    ColoredText.clear();
+                    displayMainMenu();
+                }
+            } catch (InputMismatchException e) {
+                scanner.next(); // Clear the invalid input
                 ColoredText.clear();
                 displayMainMenu();
             }
@@ -92,8 +98,14 @@ public class UserInterface {
         displayStartScreen();
         int choice = -1;
         while (choice != 1 && choice != 2) {
-            choice = scanner.nextInt();
-            if (choice != 1 && choice != 2) {
+            try {
+                choice = scanner.nextInt();
+                if (choice != 1 && choice != 2) {
+                    ColoredText.clear();
+                    displayStartScreen();
+                }
+            } catch (InputMismatchException e) {
+                scanner.next(); // Clear the invalid input
                 ColoredText.clear();
                 displayStartScreen();
             }
@@ -105,8 +117,14 @@ public class UserInterface {
         displayAIPick();
         int choice = -1;
         while (choice != 1 && choice != 2) {
-            choice = scanner.nextInt();
-            if (choice != 1 && choice != 2) {
+            try {
+                choice = scanner.nextInt();
+                if (choice != 1 && choice != 2) {
+                    ColoredText.clear();
+                    displayAIPick();
+                }
+            } catch (InputMismatchException e) {
+                scanner.next(); // Clear the invalid input
                 ColoredText.clear();
                 displayAIPick();
             }
