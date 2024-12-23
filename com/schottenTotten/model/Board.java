@@ -101,7 +101,6 @@ public class Board {
             Card_Combination cardCombination = border.getCombinations(startingPlayer.getId() == 0 ? 0 : startingPlayer.getId()-1, values[1]);
 
             if (cardCombination.getCardSize() == 3) {
-                Combination combination = cardCombination.getCombination();
                 Card_Combination cardCombination_other; 
                 cardCombination_other = border.getCombinations(Math.max(0, otherPlayer.getId() - 1), values[1]);
 
@@ -138,6 +137,8 @@ public class Board {
         } else {
             System.out.println(player2.getName() + " wins !");
         }
+
+        Player.scanner.close();
     }
 
     public void displayBoard(Player player) {
@@ -149,7 +150,6 @@ public class Board {
             oppositePlayer = player1;
         }
 
-        String spaceBetweenNumbers = "    "; 
         UserInterface.displayBanner();
         System.out.println("\t\t===============");
 
@@ -159,7 +159,7 @@ public class Board {
 
             System.out.print("  "); 
 
-            for(int i = 0; i < border.NUM_BORDER_CARDS; i++) {
+            for(int i = 0; i < Border.NUM_BORDER_CARDS; i++) {
                 Card cardJ = border.getCombinations(Math.max(0, oppositePlayer.getId() - 1),i).getCard(j); 
 
                 if (cardJ == null) {
@@ -180,7 +180,7 @@ public class Board {
 
         // Printing the border in the middle 
         // Player 1 controlled borders
-        for (int i = 0; i < border.NUM_BORDER_CARDS; i++)
+        for (int i = 0; i < Border.NUM_BORDER_CARDS; i++)
         {
             if (border.getBorder(i) == (oppositePlayer.getId() == 0 ? 1 : oppositePlayer.getId()))
             {
@@ -195,7 +195,7 @@ public class Board {
         System.out.print("\n");
 
         // Not controlled border
-        for (int i = 0; i < border.NUM_BORDER_CARDS; i++)
+        for (int i = 0; i < Border.NUM_BORDER_CARDS; i++)
         {
             if (border.getBorder(i) == 0)
             {
@@ -210,7 +210,7 @@ public class Board {
         System.out.print("\n");
         
         // Player 2 controlled borders
-        for (int i = 0; i < border.NUM_BORDER_CARDS; i++)
+        for (int i = 0; i < Border.NUM_BORDER_CARDS; i++)
         {
             if (border.getBorder(i) == (player.getId() == 0 ? 1 : player.getId()))
             {
@@ -228,7 +228,7 @@ public class Board {
                 
             System.out.print("  "); 
 
-            for(int i = 0; i < border.NUM_BORDER_CARDS; i++) 
+            for(int i = 0; i < Border.NUM_BORDER_CARDS; i++) 
             {
 
                 Card cardJ = border.getCombinations(Math.max(0, player.getId() - 1),i).getCard(j);

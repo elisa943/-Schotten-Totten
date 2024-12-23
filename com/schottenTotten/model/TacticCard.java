@@ -1,6 +1,4 @@
 package com.schottenTotten.model;
-
-import com.schottenTotten.model.TacticCards;
 import com.schottenTotten.controller.Color;
 
 public class TacticCard extends Card {

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import com.schottenTotten.controller.Color;
 import com.schottenTotten.controller.Card_Combination; 
-import com.schottenTotten.view.ColoredText;
 import java.util.InputMismatchException;
 
 public class Player {
@@ -15,6 +14,7 @@ public class Player {
     protected ArrayList<TacticCard> tacticHand;
     public static int MAX_NUM_TAC_CARDS = 7;
     public static final int NUM_TAC_CARDS = 0;
+    public static Scanner scanner = new Scanner(System.in);
 
     public Player(String name, int id) {
         this.name = name;
@@ -88,7 +88,6 @@ public class Player {
 
     public int[] getCardIndexFromUser(Border border) {
         /* Returns the card index (starts at 0) picked by the player */
-        Scanner scanner = new Scanner(System.in);
         int cardNumber = -1; 
         int borderNumber = -1;
 
@@ -153,7 +152,6 @@ public class Player {
     }
 
     public void selectValueAndColorForCard(TacticCard card) {
-        Scanner scanner = new Scanner(System.in);
 
         // Ask for the value
         int value = -1;
@@ -196,6 +194,4 @@ public class Player {
 
         System.out.println("Card set to value " + value + " and color " + selectedColor + ".");
     }
-
-
 }

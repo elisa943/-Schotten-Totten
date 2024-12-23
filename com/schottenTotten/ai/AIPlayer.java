@@ -21,7 +21,7 @@ public class AIPlayer extends Player {
         // AI picks a random border index, ensuring it's not full
         cardIndex[1] = -1;
         while (cardIndex[1] == -1) {
-            cardIndex[1] = random.nextInt(border.NUM_BORDER_CARDS);
+            cardIndex[1] = random.nextInt(Border.NUM_BORDER_CARDS);
             if (border.isBorderIndexFull(cardIndex[1], player)) {
                 cardIndex[1] = -1;
             }
