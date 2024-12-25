@@ -19,6 +19,14 @@ build:
 run: build
 	java -cp $(BIN_DIR) $(MAIN_CLASS)
 
+# Test 
+test: build
+	java -cp $(BIN_DIR) com.schottenTotten.test.DeckTest
+	java -cp $(BIN_DIR) com.schottenTotten.test.PlayerTest
+	java -cp $(BIN_DIR) com.schottenTotten.test.BoardTest
+	java -cp $(BIN_DIR) com.schottenTotten.test.CardTest
+	java -cp $(BIN_DIR) com.schottenTotten.test.BorderTest
+
 # Nettoyage des fichiers compilés
 clean:
 	rm -rf $(BIN_DIR)
