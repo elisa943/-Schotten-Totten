@@ -16,11 +16,11 @@ build:
 	@echo "Compilation terminée."
 
 # Exécution
-run: build
+run:
 	java -cp $(BIN_DIR) $(MAIN_CLASS)
 
 # Test 
-test: build
+test:
 	java -cp $(BIN_DIR) com.schottenTotten.test.DeckTest
 	java -cp $(BIN_DIR) com.schottenTotten.test.PlayerTest
 	java -cp $(BIN_DIR) com.schottenTotten.test.BoardTest

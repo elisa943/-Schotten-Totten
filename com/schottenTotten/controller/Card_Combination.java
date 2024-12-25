@@ -158,6 +158,32 @@ public class Card_Combination {
     public boolean isBetter(Card_Combination cardCombination) {
         /* Returns true if the object has a better combination than cardCombination */
         /* It is assumed that both card combinations are complete */
-        return Combination.getIndex(getCombination()) > Combination.getIndex(cardCombination.getCombination());
+
+        if (Combination.getIndex(getCombination()) > Combination.getIndex(cardCombination.getCombination())) {
+            return true;
+        } else if (Combination.getIndex(getCombination()) < Combination.getIndex(cardCombination.getCombination())) {
+            return false;
+        } else {
+            sort();
+            switch (getCombination()) {
+                case STRAIGHT_FLUSH: 
+                    return getCard(NUM_CARDS - 1).getNumber() > cardCombination.getCard(NUM_CARDS - 1).getNumber(); 
+
+                case THREE_OF_A_KIND: 
+                    return getCard(0).getNumber() > cardCombination.getCard(0).getNumber(); 
+
+                case FLUSH: 
+                    return getCard(NUM_CARDS - 1).getNumber() > cardCombination.getCard(NUM_CARDS - 1).getNumber(); 
+
+                case STRAIGHT: 
+                    return getCard(NUM_CARDS - 1).getNumber() > cardCombination.getCard(NUM_CARDS - 1).getNumber(); 
+
+                case SUM: 
+                    return sum() > cardCombination.sum(); 
+                
+                default:
+                    return false;
+            }
+        }
     }
 }
